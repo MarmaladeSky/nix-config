@@ -49,6 +49,11 @@ nixos-install --flake path:/mnt/etc/nixos#vm
 ## Changes and updates workflow
 As a result of the installation we should have flake repo in `/etc/nixos` with the git ignored generated `hardware.nix`.
 
+Git doesn't like to work under root, so this step is required
+```sh
+git config --global --add safe.directory /etc/nixos
+```
+
 To make changes and/or updates 
 ```sh
 # make some changes or git pull for them
