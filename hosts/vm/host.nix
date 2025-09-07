@@ -1,4 +1,3 @@
-# Host config that *imports* disko and points at our declarative layout.
 { pkgs, disko, ... }:
 {
   imports = [
@@ -28,7 +27,5 @@
 
   services.openssh.enable = true;
   environment.systemPackages = with pkgs; [
-    vim
-    git
   ];
 }
