@@ -3,7 +3,7 @@
 An example of management of the multiple devices via Nix Flake.
 
 This includes:
-- filesystem management via disko
+- filesystem management via [disko](https://github.com/nix-community/disko)
 - simple (but not automated) installation
 - common module for the shared configuration
 - host modules for the host-specific configuration
@@ -49,11 +49,11 @@ nixos-install --flake path:/mnt/etc/nixos#vm
 ## Changes and updates workflow
 As a result of the installation we should have flake repo in `/etc/nixos` with the git ignored generated `hardware.nix`.
 
-The prefer this workflow of making changes
+To make changes and/or updates 
 ```sh
 # make some changes or git pull for them
 
-# test the change and make it the default boot option
+# test the configuration and make it the default boot option
 nixos-rebuild test --flake path:/etc/nixos#vm
 nixos-rebuild boot --flake path:/etc/nixos#vm
 # or just switch
