@@ -11,9 +11,10 @@
     # File management
     mc
 
-    # Monitoring
+    # System
     htop
     btop
+    pciutils
 
     # Development
     git

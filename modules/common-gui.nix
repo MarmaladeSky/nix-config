@@ -7,7 +7,7 @@
     # Web
     brave
 
-    # Terminal
+    # Shell
     sakura
     xclip
 
