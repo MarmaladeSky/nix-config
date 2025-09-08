@@ -9,6 +9,7 @@
 
     # Terminal
     sakura
+    xclip
 
     # Development
     dbeaver-bin
