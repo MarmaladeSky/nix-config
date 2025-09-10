@@ -10,11 +10,9 @@
   home-manager.users.user =
     { pkgs, ... }:
     {
-      home.packages = [
-        pkgs.atool
-        pkgs.httpie
-      ];
+      home.packages = [ ];
       programs.fish.enable = true;
+      users.users.user.shell = pkgs.fish;
 
       home.stateVersion = "25.05";
     };
