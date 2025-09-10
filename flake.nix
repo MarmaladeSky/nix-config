@@ -5,6 +5,7 @@
     nixpgk.url = "github:nixos/nixpkgs/nixos-unstable";
     disko.url = "github:nix-community/disko";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    home-manager.url = "github:nix-community/home-manager";
   };
 
   outputs =
@@ -13,6 +14,7 @@
       nixpkgs,
       disko,
       nixos-hardware,
+      home-manager,
       ...
     }:
     {
@@ -22,6 +24,7 @@
           specialArgs = {
             inherit disko;
             hostname = "fw12";
+            home-manager = home-manager;
           };
           modules = [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel

@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, home-manager, ... }:
 {
   environment.systemPackages = with pkgs; [
     # Images
