@@ -12,7 +12,7 @@
     {
       home.packages = [ ];
       programs.fish.enable = true;
-      home-manager.users.user.shell = pkgs.fish;
+      shell = pkgs.fish;
 
       home.stateVersion = "25.05";
     };
