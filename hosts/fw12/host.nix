@@ -50,5 +50,6 @@
   environment.systemPackages = with pkgs; [
     # Window Management
     gnomeExtensions.touch-x
+    gnome-tweaks
   ];
 }
