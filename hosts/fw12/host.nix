@@ -26,6 +26,7 @@
   };
 
   services = {
+    desktopManager.gnome.enable = true;
     gnome = {
       core-apps.enable = false;
       core-developer-tools.enable = false;
@@ -36,7 +37,6 @@
       displayManager = {
         lightdm.enable = true;
       };
-      desktopManager.gnome.enable = true;
       windowManager.awesome.enable = true;
     };
   };
