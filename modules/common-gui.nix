@@ -7,6 +7,9 @@
     # Web
     brave
 
+    # Files
+    dropbox
+
     # Shell
     sakura
     xclip
