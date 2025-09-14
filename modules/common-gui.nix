@@ -10,6 +10,9 @@
     # Files
     dropbox
 
+    # Secrets
+    (callPackage ../pkgs/revelation { })
+
     # Shell
     sakura
     xclip

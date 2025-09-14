@@ -71,3 +71,7 @@ git add .
 git commit -m "Here some new changes"
 git push
 ```
+
+## Bonuses
+
+- [The derivation](./pkgs/revelation/default.nix) of [Revelation password manager](https://github.com/mikelolasagasti/revelation)
