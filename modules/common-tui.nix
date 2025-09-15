@@ -20,5 +20,6 @@
     git
     neovim
     nixfmt
+    nodejs
   ];
 }
