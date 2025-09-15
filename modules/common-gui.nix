@@ -24,7 +24,7 @@
     (jetbrains.idea-ultimate.override { jdk = pkgs.openjdk23; })
     (jetbrains.pycharm-professional.override { jdk = pkgs.openjdk23; })
     (jetbrains.rust-rover.override { jdk = pkgs.openjdk23; })
-    vscode
+    vscodium
 
     # Communication
     telegram-desktop

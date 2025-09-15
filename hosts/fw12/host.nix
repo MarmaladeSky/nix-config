@@ -54,5 +54,6 @@
     gnomeExtensions.touch-x
     gnomeExtensions.appindicator
     gnome-tweaks
+    nautilus # implicitly required by vscodium to open file dialogs
   ];
 }
