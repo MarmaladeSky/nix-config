@@ -17,6 +17,14 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  # Enable networking
+  networking.networkmanager.enable = true;
+  networking.wireless.iwd.enable = true;
+  networking.networkmanager.wifi.backend = "iwd";
+  networking.networkmanager.plugins = with pkgs; [
+    networkmanager-openvpn
+  ];
+
   environment.systemPackages = with pkgs; [
     # Images
     gimp
