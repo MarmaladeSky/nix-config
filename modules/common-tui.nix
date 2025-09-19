@@ -10,6 +10,8 @@
 
     # File management
     mc
+    zip
+    unzip
 
     # System
     htop
