@@ -3,6 +3,7 @@
 An example of management of the multiple devices via Nix Flake.
 
 This includes:
+
 - filesystem management via [disko](https://github.com/nix-community/disko)
 - simple (but not automated) installation
 - common module for the shared configuration
@@ -11,19 +12,23 @@ This includes:
 ## VM Installation Steps
 
 ### Run Live ISO
+
 [qemu-system-x86_64-uefi](https://nixos.wiki/wiki/QEMU) in run.sh is just a way to provide OVMF in a NixOS host.  
 You'll need QEMU with UEFI.
+
 ```sh
 ./run.sh /path/to/NixOS/livecd.iso
 ```
 
 ### Mount flake code
+
 ```sh
 mkdir /9p
 mount -t 9p -o trans=virtio,version=9p2000.L host0 /9p
 ```
 
 ### Installation
+
 ```sh
 # Format and mount filesystems
 nix run \
@@ -47,14 +52,17 @@ nixos-install --flake path:/mnt/etc/nixos#vm
 ```
 
 ## Changes and updates workflow
+
 As a result of the installation we should have flake repo in `/etc/nixos` with the git ignored generated `hardware.nix`.
 
 Git doesn't like to work under root, so this step is required
+
 ```sh
 git config --global --add safe.directory /etc/nixos
 ```
 
-To make changes and/or updates 
+To make changes and/or updates
+
 ```sh
 # make some changes or git pull for them
 
@@ -64,7 +72,8 @@ nixos-rebuild boot --flake path:/etc/nixos#vm
 # or just switch
 nixos-rebuild switch --flake path:/etc/nixos#vm
 # or update
-nixos-rebuild switch --upgrade --flake path:/etc/nixos#vm
+nix flake update
+nixos-rebuild switch --flake path:/etc/nixos#vm
 
 # commit the change and push it
 git add .
