@@ -25,6 +25,11 @@
     git
     neovim
     nixfmt
+    # Javascript
     nodejs
+    # Haskell
+    stack
+    # Python
+    uv
   ];
 }
