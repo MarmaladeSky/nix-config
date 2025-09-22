@@ -18,6 +18,9 @@
     btop
     pciutils
 
+    # Networking
+    frp
+
     # Development
     git
     neovim
