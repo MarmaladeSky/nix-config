@@ -79,6 +79,10 @@ nixos-rebuild switch --flake path:/etc/nixos#vm
 git add .
 git commit -m "Here some new changes"
 git push
+
+# clean up all old generations
+nix-collect-garbage --delete-old
+nixos-rebuild switch --flake path:/etc/nixos#vm
 ```
 
 ## Bonuses
