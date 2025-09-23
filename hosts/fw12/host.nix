@@ -28,6 +28,8 @@
   };
 
   services = {
+    fwupd.enable = true;
+
     desktopManager.gnome.enable = true;
     gnome = {
       core-apps.enable = false;
@@ -47,7 +49,6 @@
     gnome-user-docs
   ];
 
-  services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
     # Window Management

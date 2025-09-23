@@ -4,6 +4,8 @@
 
   programs.fish.enable = true;
 
+  services.openssh.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Shell
     tmux
@@ -17,9 +19,12 @@
     htop
     btop
     pciutils
+    efibootmgr
+    mokutil
 
     # Networking
     frp
+    wget
 
     # Development
     git
