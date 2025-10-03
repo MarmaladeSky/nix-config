@@ -9,6 +9,7 @@
   environment.systemPackages = with pkgs; [
     # Shell
     tmux
+    jq
 
     # File management
     mc
@@ -30,6 +31,7 @@
     git
     neovim
     nixfmt
+    awscli2
     # Javascript
     nodejs
     # Haskell

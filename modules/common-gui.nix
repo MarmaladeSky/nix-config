@@ -31,6 +31,7 @@
 
     # Web
     brave
+    tor-browser-bundle-bin
 
     # Files
     dropbox
