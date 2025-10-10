@@ -23,9 +23,17 @@
     efibootmgr
     mokutil
 
+    # Media
+    mpv
+    vlc
+
+    # Utils
+    flameshot
+
     # Networking
     frp
     wget
+    qbittorrent-enhanced
 
     # Development
     git
@@ -38,5 +46,12 @@
     stack
     # Python
     uv
+    # Java
+    jdk24
+    # Scala
+    scala
+    bloop
+    sbt
+    mill
   ];
 }
