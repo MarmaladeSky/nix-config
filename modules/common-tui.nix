@@ -47,7 +47,7 @@
     # Python
     uv
     # Java
-    jdk24
+    jdk25
     # Scala
     scala
     bloop
