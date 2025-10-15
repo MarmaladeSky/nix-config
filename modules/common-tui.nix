@@ -33,6 +33,7 @@
     # Networking
     frp
     wget
+    sshfs
     qbittorrent-enhanced
 
     # Development
