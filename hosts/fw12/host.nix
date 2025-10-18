@@ -49,6 +49,16 @@
     gnome-user-docs
   ];
 
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+    };
+    allowedBridges = [ "br0" ];
+  };
+
 
   environment.systemPackages = with pkgs; [
     # Window Management
@@ -56,5 +66,10 @@
     gnomeExtensions.appindicator
     gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
+
+    # part of virtualization
+    kubectl
+    cloud-utils
+    helm
   ];
 }

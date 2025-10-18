@@ -10,6 +10,7 @@
     # Shell
     tmux
     jq
+    yq-go
 
     # File management
     mc
