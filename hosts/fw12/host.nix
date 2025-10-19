@@ -70,6 +70,7 @@
     # part of virtualization
     kubectl
     cloud-utils
-    helm
+    kubernetes-helm
+    k9s
   ];
 }
