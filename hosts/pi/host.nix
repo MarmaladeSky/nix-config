@@ -42,8 +42,12 @@
     ];
   };
   environment.systemPackages = with pkgs; [
+    # Raspberry Pi related
     libraspberrypi
     raspberrypi-eeprom
     toybox
+
+    # HDD
+    smartmontools
   ];
 }
