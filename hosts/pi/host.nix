@@ -34,11 +34,21 @@
 
   services.openssh.enable = true;
 
+  virtualisation.docker = {
+    enable = true;
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
+
   users.users.user = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
+      "docker"
     ];
   };
   environment.systemPackages = with pkgs; [
