@@ -48,6 +48,19 @@
             ./hosts/fw13/host.nix
           ];
         };
+        pi = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            inherit disko;
+            hostname = "raspberry";
+          };
+          modules = [
+            ./modules/common-tui.nix
+	    nixos-hardware.nixosModules."raspberry-pi-4"
+            ./hosts/pi/hardware.nix
+            ./hosts/pi/host.nix
+          ];
+        };
         vm = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {

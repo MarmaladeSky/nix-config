@@ -72,5 +72,9 @@
     cloud-utils
     kubernetes-helm
     k9s
+
+    # Development
+    # Scala
+    bloop
   ];
 }

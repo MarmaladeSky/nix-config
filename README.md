@@ -6,7 +6,7 @@ This includes:
 
 - filesystem management via [disko](https://github.com/nix-community/disko)
 - simple (but not automated) installation
-- common module for the shared configuration
+- common modules for the shared configuration
 - host modules for the host-specific configuration
 
 ## VM Installation Steps
@@ -51,9 +51,60 @@ nixos-generate-config --no-filesystems --show-hardware-config > /mnt/etc/nixos/h
 nixos-install --flake path:/mnt/etc/nixos#vm
 ```
 
+## Raspberry Pi 4B Installation
+
+Have Raspberry Pi firmware updates with USB Boot support.
+
+Burn nixos sd image to a USB drive with caligula (`nix-shell -p caligula`):
+
+```sh
+nix-shell -p caligula
+caligula burn nixos-image-sd-card-*-aarch64-linux.img.zst
+```
+
+Boot from USB, set password to nixos user with passwd, connect with ssh using this user.
+
+Move this configuration to the host (for example with sshfs, rsync, etc.).
+
+Prepare partitions layout with Disko:
+
+```sh
+nix run \
+  --extra-experimental-features "flakes nix-command" \
+  github:nix-community/disko/latest -- \
+  --mode destroy,format,mount \
+  --yes-wipe-all-disks ./hosts/pi/disko.nix
+```
+
+Copy this configuration to /etc/nixos:
+
+```sh
+mkdir -p /mnt/etc/nixos
+cp -r ./.git /mnt/etc/nixos/
+git -C /mnt/etc/nixos reset --hard HEAD
+```
+
+Generate hardware configuration and install nixos:
+
+```sh
+nixos-generate-config --no-filesystems --show-hardware-config > /mnt/etc/nixos/hosts/pi/hardware.nix
+nixos-install --flake path:/mnt/etc/nixos#pi
+```
+
+Install firmware from the NixOS image (there is no cleaner way):
+
+```sh
+cp -r /boot/* /mnt/boot/
+```
+
+Unfortunately, [there is no cleaner way](https://nixos.wiki/wiki/NixOS_on_ARM/Raspberry_Pi#Notes_about_the_boot_process) and official documentation suggests to do some mental gymnastics:
+
+> This configuration is the most similar to the way that NixOS works on other devices. The downside is that NixOS won't attempt to manage anything associated with the first and second stage bootloaders (e.g. config.txt).  
+> You can feel better about this by thinking about this configuration as similar to BIOS settings.
+
 ## Changes and updates workflow
 
-As a result of the installation we should have flake repo in `/etc/nixos` with the git ignored generated `hardware.nix`.
+As a result of the installation we should have flake repo in `/etc/nixos` with the generated and gitignored `hardware.nix`.
 
 Git doesn't like to work under root, so this step is required
 

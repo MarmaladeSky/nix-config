@@ -52,7 +52,6 @@
     jdk25
     # Scala
     scala
-    bloop
     sbt
     mill
   ];
