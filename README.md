@@ -123,7 +123,7 @@ nixos-rebuild boot --flake path:/etc/nixos#vm
 # or just switch
 nixos-rebuild switch --flake path:/etc/nixos#vm
 # or update
-nix flake update
+nix flake update --flake path:/etc/nixos
 nixos-rebuild switch --flake path:/etc/nixos#vm
 
 # commit the change and push it
