@@ -49,6 +49,10 @@
     gnome-user-docs
   ];
 
+  programs.ladybird = {
+    enable = true;
+  };
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
