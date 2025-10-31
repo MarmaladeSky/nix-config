@@ -14,6 +14,12 @@
     };
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "/dev/disk/by-label/storage";
+    fsType = "btrfs";
+    options = [ "nofail" "x-systemd.device-timeout=5s" ];
+  };
+
   boot = {
     kernelPackages = pkgs.linuxKernel.packages.linux_rpi4;
     initrd.availableKernelModules = [ "xhci_pci" "usbhid" "usb_storage" ];
@@ -51,6 +57,15 @@
       "docker"
     ];
   };
+
+  users.users.mercury = {
+    isNormalUser = true;
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+  };
+
   environment.systemPackages = with pkgs; [
     # Raspberry Pi related
     libraspberrypi
