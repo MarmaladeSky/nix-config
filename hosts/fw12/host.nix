@@ -53,6 +53,17 @@
     enable = true;
   };
 
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      log-driver = "journald";
+    };
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
