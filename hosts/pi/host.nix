@@ -38,7 +38,38 @@
   networking.hostName = "raspberry";
   networking.networkmanager.enable = true;
 
-  services.openssh.enable = true;
+  networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 22 2283 ];
+    allowedUDPPortRanges = [];
+  };
+
+  services = {
+    openssh.enable = true;
+
+    postgresql = {
+      enable = true;
+      dataDir = "/mnt/storage/postgresql";
+    };
+
+    immich = {
+      enable = true;
+      host = "0.0.0.0";
+      port = 2283;
+      mediaLocation = "/mnt/storage/immich";
+      machine-learning.enable = false;
+      database.enableVectorChord = false;
+    };
+  };
+  # Prepare the directory for PostgreSQL and Immich data
+  system.activationScripts.postgresInit = {
+  text = ''
+    mkdir -p /mnt/storage/postgresql
+    mkdir -p /mnt/storage/immich
+    chown -R postgres:postgres /mnt/storage/postgresql
+    chown -R immich:immich /mnt/storage/immich
+  '';
+  };
 
   virtualisation.docker = {
     enable = true;
