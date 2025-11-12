@@ -56,6 +56,8 @@
     gnome-user-docs
   ];
 
+  programs.hyprland.enable = true;
+
   programs.ladybird = {
     enable = true;
   };
@@ -88,6 +90,7 @@
     gnomeExtensions.appindicator
     gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
+    kitty # required for the default Hyprland config
 
     # part of virtualization
     kubectl
