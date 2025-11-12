@@ -31,6 +31,7 @@
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./modules/home-manager-tui.nix
+            ./modules/home-manager-gui.nix
             ./hosts/fw12/hardware.nix
             ./hosts/fw12/host.nix
           ];
