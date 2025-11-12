@@ -1,4 +1,4 @@
-{ pkgs, disko, ... }:
+{ pkgs, lib, disko, ... }:
 {
   imports = [
     disko.nixosModules.disko
@@ -19,11 +19,18 @@
   networking.hostName = "fw12";
   networking.networkmanager.enable = true;
 
+  services.udev.extraRules = ''
+    SUBSYSTEM=="backlight", ACTION=="add", \
+    RUN+="${pkgs.coreutils}/bin/chgrp video /sys$devpath/brightness", \
+    RUN+="${pkgs.coreutils}/bin/chmod g+w /sys$devpath/brightness"
+  '';
+
   users.users.user = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
+      "video"
     ];
   };
 

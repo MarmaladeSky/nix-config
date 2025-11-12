@@ -13,6 +13,7 @@
       pamixer
       picom
       pavucontrol
+      acpilight
     ]; 
 
     home.file.".config/awesome".source = builtins.fetchGit {
