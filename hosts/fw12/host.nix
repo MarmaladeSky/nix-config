@@ -37,7 +37,6 @@
   services = {
     fwupd.enable = true;
 
-    desktopManager.gnome.enable = true;
     gnome = {
       core-apps.enable = false;
       core-developer-tools.enable = false;
@@ -46,17 +45,29 @@
     xserver = {
       enable = true;
       displayManager = {
-        lightdm.enable = true;
+        lightdm.enable = false;
       };
       windowManager.awesome.enable = true;
     };
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
   environment.gnome.excludePackages = with pkgs; [
     gnome-tour
     gnome-user-docs
   ];
 
-  programs.hyprland.enable = true;
+  # hyprland
+  programs.hyprland = {
+    enable = true;
+    withUWSM = true;
+    xwayland.enable = true;
+  };
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
+  };
+
 
   programs.ladybird = {
     enable = true;
@@ -90,7 +101,6 @@
     gnomeExtensions.appindicator
     gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
-    kitty # required for the default Hyprland config
 
     # part of virtualization
     kubectl

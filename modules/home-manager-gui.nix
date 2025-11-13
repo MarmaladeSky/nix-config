@@ -7,13 +7,29 @@
 {
   imports = [ (import "${home-manager}/nixos") ];
 
+  # i3lock
+  security.pam.services.i3lock = {
+    enable = true;
+    text = ''
+      auth include login
+      account include login
+      password include login
+      session include login
+    '';
+  };
+
   home-manager.users.user = { 
 
     home.packages = with pkgs; [
+      # awesome
       pamixer
       picom
       pavucontrol
       acpilight
+      i3lock-color
+
+      # hyprland
+      rofi
     ]; 
 
     home.file.".config/awesome".source = builtins.fetchGit {
