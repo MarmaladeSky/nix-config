@@ -27,6 +27,8 @@
       pavucontrol
       acpilight
       i3lock-color
+      networkmanagerapplet
+      networkmanager-openvpn
 
       # hyprland
       rofi
