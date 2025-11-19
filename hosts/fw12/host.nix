@@ -46,6 +46,7 @@
       core-developer-tools.enable = false;
       games.enable = false;
     };
+
     xserver = {
       enable = true;
       displayManager = {
@@ -53,9 +54,8 @@
       };
       windowManager.awesome.enable = true;
       xkb.layout = "us,ru";
-      xkbVariant = ",";
-      xkbOptions = "grp:caps_toggle";
-
+      xkb.variant = ",";
+      xkb.options = "grp:caps_toggle";
     };
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
