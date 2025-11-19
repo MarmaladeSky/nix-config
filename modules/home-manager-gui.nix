@@ -18,6 +18,8 @@
     '';
   };
 
+  programs.waybar.enable = true;
+
   home-manager.users.user = { 
 
     home.packages = with pkgs; [
@@ -32,6 +34,7 @@
 
       # hyprland
       rofi
+      font-awesome
     ]; 
 
     home.file.".config/awesome".source = builtins.fetchGit {
