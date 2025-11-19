@@ -35,6 +35,9 @@
     ];
   };
 
+  # somehow it gets enabled
+  systemd.user.services.orca.enable = false;
+
   services = {
     fwupd.enable = true;
 
@@ -102,7 +105,6 @@
 
   environment.systemPackages = with pkgs; [
     # Window Management
-    gnomeExtensions.touch-x
     gnomeExtensions.appindicator
     gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
