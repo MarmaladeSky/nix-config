@@ -31,6 +31,7 @@
       "wheel"
       "networkmanager"
       "video"
+      "input"
     ];
   };
 
@@ -48,6 +49,10 @@
         lightdm.enable = false;
       };
       windowManager.awesome.enable = true;
+      xkb.layout = "us,ru";
+      xkbVariant = ",";
+      xkbOptions = "grp:caps_toggle";
+
     };
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
