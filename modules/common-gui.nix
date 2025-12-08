@@ -51,6 +51,7 @@
     (jetbrains.pycharm-professional.override { jdk = pkgs.openjdk25; })
     (jetbrains.rust-rover.override { jdk = pkgs.openjdk25; })
     vscodium
+    visualvm
 
     # Communication
     telegram-desktop
