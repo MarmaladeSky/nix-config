@@ -42,6 +42,7 @@
     neovim
     nixfmt
     awscli2
+    sqlite
     # Javascript
     nodejs
     # Haskell
