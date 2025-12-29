@@ -32,9 +32,11 @@
     # Web
     brave
     tor-browser
+    freetube
 
     # Files
     dropbox
+    xfce.thunar
 
     # Secrets
     (callPackage ../pkgs/revelation { })
