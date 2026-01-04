@@ -28,6 +28,7 @@
     # Images
     gimp
     krita
+    qimgv
 
     # Web
     brave
