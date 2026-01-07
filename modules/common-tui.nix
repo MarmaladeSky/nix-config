@@ -3,6 +3,11 @@
   nixpkgs.config.allowUnfree = true;
 
   programs.fish.enable = true;
+  programs.fish.interactiveShellInit = ''
+    if not set -q TMUX
+      exec tmux
+    end
+  '';
 
   services.openssh.enable = true;
 
