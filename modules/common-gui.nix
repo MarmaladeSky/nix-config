@@ -55,6 +55,8 @@
     (jetbrains.rust-rover.override { jdk = pkgs.openjdk25; })
     vscodium
     visualvm
+    claude-code
+    opencode
 
     # Communication
     telegram-desktop
