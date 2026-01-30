@@ -57,6 +57,7 @@
     visualvm
     claude-code
     opencode
+    flyway
 
     # Communication
     telegram-desktop
