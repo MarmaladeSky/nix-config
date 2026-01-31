@@ -50,8 +50,8 @@
     dbeaver-bin
     (jetbrains.datagrip.override { jdk = pkgs.openjdk25; })
     (jetbrains.goland.override { jdk = pkgs.openjdk25; })
-    (jetbrains.idea-ultimate.override { jdk = pkgs.openjdk25; })
-    (jetbrains.pycharm-professional.override { jdk = pkgs.openjdk25; })
+    (jetbrains.idea.override { jdk = pkgs.openjdk25; })
+    (jetbrains.pycharm.override { jdk = pkgs.openjdk25; })
     (jetbrains.rust-rover.override { jdk = pkgs.openjdk25; })
     vscodium
     visualvm
