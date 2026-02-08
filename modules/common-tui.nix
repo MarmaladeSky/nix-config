@@ -50,6 +50,7 @@
     # Haskell
     stack
     # Python
+    python3
     uv
     # Java
     jdk25
