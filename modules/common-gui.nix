@@ -37,7 +37,7 @@
 
     # Files
     dropbox
-    xfce.thunar
+    thunar
 
     # Secrets
     (callPackage ../pkgs/revelation { })
