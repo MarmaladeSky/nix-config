@@ -50,6 +50,7 @@
       core-apps.enable = false;
       core-developer-tools.enable = false;
       games.enable = false;
+      gcr-ssh-agent.enable = false;
     };
 
     xserver = {

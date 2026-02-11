@@ -6,6 +6,19 @@
   programs.fish.interactiveShellInit = ''
   '';
 
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
+  programs.gnupg = {
+    agent = {
+      enable = true;
+      enableSSHSupport = true;
+      pinentryPackage = pkgs.pinentry-curses;
+    };
+  };
+
   services.openssh.enable = true;
 
   environment.systemPackages = with pkgs; [
@@ -26,6 +39,9 @@
     efibootmgr
     mokutil
 
+    # Encryption
+    gnupg
+
     # Media
     mpv
     vlc
@@ -38,10 +54,10 @@
     wget
     sshfs
     qbittorrent-enhanced
+    aerc
 
     # Development
     git
-    neovim
     nixfmt
     awscli2
     sqlite
