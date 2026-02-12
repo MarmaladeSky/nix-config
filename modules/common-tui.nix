@@ -1,4 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, nixpkgs-mill, ... }:
+let
+  millPkgs = import nixpkgs-mill { system = pkgs.stdenv.hostPlatform.system; };
+in
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -73,6 +76,6 @@
     # Scala
     scala
     sbt
-    mill
+    millPkgs.mill
   ];
 }

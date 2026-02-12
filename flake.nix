@@ -3,6 +3,7 @@
 
   inputs = {
     nixpgk.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-mill.url = "github:nixos/nixpkgs/a1bab9e494f5f4939442a57a58d0449a109593fe";
     disko.url = "github:nix-community/disko";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
@@ -12,6 +13,7 @@
     {
       self,
       nixpkgs,
+      nixpkgs-mill,
       disko,
       nixos-hardware,
       home-manager,
@@ -25,6 +27,7 @@
             disko = disko;
             hostname = "fw12";
             home-manager = home-manager;
+            inherit nixpkgs-mill;
           };
           modules = [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel
@@ -39,7 +42,7 @@
         fw13 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko;
+            inherit disko nixpkgs-mill;
             hostname = "fw13";
           };
           modules = [
@@ -52,7 +55,7 @@
         pi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
-            inherit disko;
+            inherit disko nixpkgs-mill;
             hostname = "raspberry";
           };
           modules = [
@@ -65,7 +68,7 @@
         vm = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko;
+            inherit disko nixpkgs-mill;
             hostname = "vm";
           };
           modules = [
