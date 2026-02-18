@@ -69,6 +69,7 @@
     python3
     uv
     # Java
+    jdk17
     jdk25
     # Scala
     scala
