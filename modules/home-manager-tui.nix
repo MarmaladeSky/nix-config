@@ -13,6 +13,20 @@
       home.packages = [ ];
       programs.fish.enable = true;
 
+      # NeoVim
+      programs.neovim = {
+        enable = true;
+
+	plugins = with pkgs.vimPlugins; [
+	];
+
+        extraConfig = ''
+          set number
+          set relativenumber
+        '';
+
+      };
+
       programs.git = {
         enable = true;
 
