@@ -7,23 +7,27 @@
 {
   users.users.user.isNormalUser = true;
   users.users.user.shell = pkgs.fish;
+
   home-manager.users.user =
     { pkgs, ... }:
     {
       home.packages = [ ];
+
       programs.fish.enable = true;
 
       # NeoVim
       programs.neovim = {
         enable = true;
 
-	plugins = with pkgs.vimPlugins; [
-	];
+        plugins = with pkgs.vimPlugins; [
+        ];
 
-        extraConfig = ''
-          set number
-          set relativenumber
-        '';
+	extraLuaConfig = ''
+          vim.opt.number = true
+          vim.opt.relativenumber = true
+          vim.opt.list = true
+          vim.opt.expandtab = true
+	'';
 
       };
 
