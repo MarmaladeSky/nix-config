@@ -56,6 +56,7 @@
     vscodium
     visualvm
     claude-code
+    codex
     opencode
     flyway
 
