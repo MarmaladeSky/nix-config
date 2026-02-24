@@ -22,12 +22,21 @@
         plugins = with pkgs.vimPlugins; [
         ];
 
-	extraLuaConfig = ''
+        initLua = ''
           vim.opt.number = true
           vim.opt.relativenumber = true
           vim.opt.list = true
           vim.opt.expandtab = true
-	'';
+	  vim.opt.list = true
+          vim.opt.listchars = {
+            tab = ">-",
+            trail = "·",
+            space = "·",
+            nbsp = "␣",
+            extends = ">",
+            precedes = "<",
+          }
+          '';
 
       };
 
@@ -41,7 +50,7 @@
 
       programs.tmux = {
         enable = true;
-	plugins = with pkgs; [
+        plugins = with pkgs; [
           tmuxPlugins.yank
         ];
         extraConfig = ''
