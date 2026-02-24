@@ -39,6 +39,20 @@
         };
       };
 
+      programs.tmux = {
+        enable = true;
+	plugins = with pkgs; [
+          tmuxPlugins.yank
+        ];
+        extraConfig = ''
+          # Your tmux config here
+          set -g mouse off
+          set -g history-limit 10000
+          set -g default-terminal "tmux-256color"
+          set -g mode-keys vi
+        '';
+      };
+
       home.stateVersion = "25.05";
     };
 }
