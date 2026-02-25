@@ -27,7 +27,7 @@
   environment.systemPackages = with pkgs; [
     # Images
     gimp
-    krita
+    #krita disable krita due to broken dependency at 02/25/2026
     qimgv
 
     # Web
