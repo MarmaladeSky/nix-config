@@ -2,6 +2,8 @@
 {
   nixpkgs.config.allowUnfree = true;
 
+  programs.nix-ld.enable = true;
+
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
   '';
