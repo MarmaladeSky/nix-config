@@ -60,6 +60,20 @@
       machine-learning.enable = false;
       database.enableVectorChord = false;
     };
+
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      configDir = "/home/user/.config/syncthing";
+      user = "user";
+      group = "users";
+      folders = {
+        "Pictures" = {
+	  path = "/mnt/storage/user/syncthing/Photos";
+	  ignorePerms = false;
+	};
+      };
+    };
   };
   # Prepare the directory for PostgreSQL and Immich data
   system.activationScripts.postgresInit = {
