@@ -38,6 +38,7 @@
     # Files
     dropbox
     thunar
+    libreoffice
 
     # Secrets
     (callPackage ../pkgs/revelation { })
