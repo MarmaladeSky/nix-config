@@ -49,6 +49,19 @@
             ./hosts/fw13/host.nix
           ];
         };
+        thinkpad = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit disko;
+            hostname = "thinkpad";
+          };
+          modules = [
+            ./modules/common-tui.nix
+            ./modules/common-gui.nix
+            ./hosts/thinkpad/hardware.nix
+            ./hosts/thinkpad/host.nix
+          ];
+        };
         pi = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
@@ -57,7 +70,7 @@
           };
           modules = [
             ./modules/common-tui.nix
-	    nixos-hardware.nixosModules."raspberry-pi-4"
+            nixos-hardware.nixosModules."raspberry-pi-4"
             ./hosts/pi/hardware.nix
             ./hosts/pi/host.nix
           ];
