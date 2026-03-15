@@ -46,6 +46,21 @@
   services = {
     fwupd.enable = true;
 
+
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+      configDir = "/home/user/.config/syncthing";
+      user = "user";
+      group = "users";
+      folders = {
+        "Pictures" = {
+	  path = "/home/user/Pictures";
+	  ignorePerms = false;
+	};
+      };
+    };
+
     gnome = {
       core-apps.enable = false;
       core-developer-tools.enable = false;
