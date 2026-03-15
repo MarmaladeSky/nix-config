@@ -69,7 +69,7 @@
       group = "users";
       folders = {
         "Pictures" = {
-	  path = "/mnt/storage/user/syncthing/Photos";
+	  path = "/mnt/storage/user/syncthing/Pictures";
 	  ignorePerms = false;
 	};
       };
