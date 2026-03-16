@@ -52,12 +52,14 @@
         thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko;
+            inherit disko home-manager;
             hostname = "thinkpad";
           };
           modules = [
             ./modules/common-tui.nix
             ./modules/common-gui.nix
+            ./modules/home-manager-tui.nix
+            ./modules/home-manager-gui.nix
             ./hosts/thinkpad/hardware.nix
             ./hosts/thinkpad/host.nix
           ];
