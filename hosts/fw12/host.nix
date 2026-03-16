@@ -58,6 +58,18 @@
 	  path = "/home/user/Pictures";
 	  ignorePerms = false;
 	};
+        "Documents" = {
+	  path = "/home/user/Documents";
+	  ignorePerms = false;
+	};
+        "Videos" = {
+	  path = "/home/user/Videos";
+	  ignorePerms = false;
+	};
+        "Music" = {
+	  path = "/home/user/Music";
+	  ignorePerms = false;
+	};
       };
     };
 
