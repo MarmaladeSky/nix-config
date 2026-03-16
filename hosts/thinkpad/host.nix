@@ -86,6 +86,7 @@
 
     xserver = {
       enable = true;
+      dpi = 166;
       displayManager = {
         lightdm.enable = false;
       };
