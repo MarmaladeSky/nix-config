@@ -38,6 +38,7 @@
     htop
     btop
     pciutils
+    usbutils
     efibootmgr
     mokutil
 
