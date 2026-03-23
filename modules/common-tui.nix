@@ -23,6 +23,8 @@
 
   services.openssh.enable = true;
 
+  services.usbmuxd.enable = true;
+
   environment.systemPackages = with pkgs; [
     # Shell
     tmux
@@ -33,6 +35,8 @@
     mc
     zip
     unzip
+    libimobiledevice
+    ifuse
 
     # System
     htop
