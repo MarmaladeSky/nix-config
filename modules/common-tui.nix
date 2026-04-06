@@ -45,6 +45,7 @@
     usbutils
     efibootmgr
     mokutil
+    exfat
 
     # Encryption
     gnupg
