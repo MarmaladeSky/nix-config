@@ -18,6 +18,7 @@
       # NeoVim
       programs.neovim = {
         enable = true;
+	withRuby = false;
 
         plugins = with pkgs.vimPlugins; [
         ];
