@@ -53,23 +53,25 @@
       configDir = "/home/user/.config/syncthing";
       user = "user";
       group = "users";
-      folders = {
-        "Pictures" = {
-	  path = "/home/user/Pictures";
-	  ignorePerms = false;
-	};
-        "Documents" = {
-	  path = "/home/user/Documents";
-	  ignorePerms = false;
-	};
-        "Videos" = {
-	  path = "/home/user/Videos";
-	  ignorePerms = false;
-	};
-        "Music" = {
-	  path = "/home/user/Music";
-	  ignorePerms = false;
-	};
+      settings = {
+        folders = {
+          "Pictures" = {
+            path = "/home/user/Pictures";
+            ignorePerms = false;
+          };
+          "Documents" = {
+            path = "/home/user/Documents";
+            ignorePerms = false;
+          };
+          "Videos" = {
+            path = "/home/user/Videos";
+            ignorePerms = false;
+          };
+          "Music" = {
+            path = "/home/user/Music";
+            ignorePerms = false;
+          };
+        };
       };
     };
 
