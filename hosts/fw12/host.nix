@@ -153,5 +153,6 @@
     # Development
     # Scala
     bloop
+    clang
   ];
 }
