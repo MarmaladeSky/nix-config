@@ -19,6 +19,7 @@
       programs.neovim = {
         enable = true;
 	withRuby = false;
+    	withPython3 = true;
 
         plugins = with pkgs.vimPlugins; [
         ];
