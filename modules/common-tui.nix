@@ -52,13 +52,6 @@
     # Encryption
     gnupg
 
-    # Media
-    mpv
-    vlc
-
-    # Utils
-    flameshot
-
     # Networking
     frp
     wget

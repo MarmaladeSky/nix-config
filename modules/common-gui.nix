@@ -44,6 +44,13 @@
     # Secrets
     (callPackage ../pkgs/revelation { })
 
+    # Media
+    mpv
+    vlc
+
+    # Utils
+    flameshot
+
     # Shell
     sakura
     xclip
