@@ -37,6 +37,7 @@
                   crypttabExtraOpts = [
                     "fido2-device=auto"
                     "token-timeout=10"
+                    "password-echo=no"
                   ];
                 };
                 content = {
