@@ -122,8 +122,6 @@
     };
   };
 
-  boot.initrd.luks.reusePassphrases = true;
-
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/var/log".neededForBoot = true;
 }
