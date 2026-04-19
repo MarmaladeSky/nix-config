@@ -57,7 +57,7 @@
       configDir = "/home/user/.config/syncthing";
       user = "user";
       group = "users";
-      folders = {
+      settings.folders = {
         "Pictures" = {
 	  path = "/home/user/Pictures";
 	  ignorePerms = false;
