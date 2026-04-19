@@ -50,6 +50,14 @@
     postgresql = {
       enable = true;
       dataDir = "/mnt/storage/postgresql";
+      extensions = ps: with ps; [
+        pgvector
+        vectorchord
+      ];
+    
+      settings = {
+        shared_preload_libraries = "vchord.so";
+      };
     };
 
     immich = {
@@ -58,7 +66,6 @@
       port = 2283;
       mediaLocation = "/mnt/storage/immich";
       machine-learning.enable = false;
-      database.enableVectorChord = false;
     };
 
     syncthing = {
