@@ -50,11 +50,13 @@
     postgresql = {
       enable = true;
       dataDir = "/mnt/storage/postgresql";
+      # vectorchord is required by immich
+      # it may be better to move DB management to immich itself
+      # there was a huge pain of migrating from another vector search extension
       extensions = ps: with ps; [
         pgvector
         vectorchord
       ];
-    
       settings = {
         shared_preload_libraries = "vchord.so";
       };
