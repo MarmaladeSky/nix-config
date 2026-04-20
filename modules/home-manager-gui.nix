@@ -39,7 +39,7 @@
 
     home.file.".config/awesome".source = builtins.fetchGit {
       url = "https://github.com/MarmaladeSky/awesomewm.git";
-      rev = "b64d4a0fcae1201d7ae43065331e75413a07d32d";
+      rev = "004920668cc9701f5276f72d6e30e1d658adbf46";
       submodules = true;
     };
   };
