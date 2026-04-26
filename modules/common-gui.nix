@@ -49,7 +49,25 @@
     vlc
 
     # Utils
-    flameshot
+    (flameshot.overrideAttrs (_: {
+      version = "13.3.0";
+      src = fetchFromGitHub {
+        owner = "flameshot-org";
+        repo = "flameshot";
+        tag = "v13.3.0";
+        hash = "sha256-RyoLniRmJRinLUwgmaA4RprYAVHnoPxCP9LyhHfUPe0=";
+      };
+      patches = map fetchurl [
+        {
+          url = "https://raw.githubusercontent.com/NixOS/nixpkgs/31aea8e5e02750901de1e8bc0a30325d79ed10d7/pkgs/by-name/fl/flameshot/load-missing-deps.patch";
+          hash = "sha256-XbuuoOiRDcS6XtCv0Uama5F166272FcmCxtwFMxl9sw=";
+        }
+        {
+          url = "https://raw.githubusercontent.com/NixOS/nixpkgs/31aea8e5e02750901de1e8bc0a30325d79ed10d7/pkgs/by-name/fl/flameshot/macos-build.patch";
+          hash = "sha256-VVQq2GfESWWADkSLILZuyCxHVSnQhDJl1+9C+zqEVFg=";
+        }
+      ];
+    }))
 
     # Shell
     sakura
