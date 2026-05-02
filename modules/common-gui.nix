@@ -24,6 +24,27 @@
     networkmanager-openvpn
   ];
 
+  services = {
+
+    printing = {
+      enable = true;
+
+      drivers = with pkgs; [
+        cups-filters
+        gutenprint
+      ];
+
+      browsed.enable = false;
+    };
+
+    avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
+    };
+
+  };
+
   environment.systemPackages = with pkgs; [
     # Images
     gimp
@@ -34,6 +55,9 @@
     brave
     tor-browser
     freetube
+
+    # Printing
+    system-config-printer
 
     # Files
     dropbox
