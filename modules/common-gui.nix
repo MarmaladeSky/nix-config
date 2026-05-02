@@ -55,6 +55,10 @@
     brave
     tor-browser
     freetube
+    thunderbird
+
+    # Printing
+    system-config-printer
 
     # Printing
     system-config-printer
