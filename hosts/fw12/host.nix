@@ -14,6 +14,9 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
 
   services.logind.settings.Login.extraConfig = ''
     # don’t shutdown when power button is short-pressed
