@@ -89,6 +89,15 @@
             ./hosts/vm/host.nix
           ];
         };
+        webserver = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = {
+            hostname = "webserver";
+          };
+          modules = [
+            ./hosts/webserver/host.nix
+          ];
+        };
       };
     };
 
