@@ -22,9 +22,8 @@
         fw12 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            disko = disko;
+            inherit disko home-manager;
             hostname = "fw12";
-            home-manager = home-manager;
           };
           modules = [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel
