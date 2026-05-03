@@ -102,6 +102,85 @@ Unfortunately, [there is no cleaner way](https://nixos.wiki/wiki/NixOS_on_ARM/Ra
 > This configuration is the most similar to the way that NixOS works on other devices. The downside is that NixOS won't attempt to manage anything associated with the first and second stage bootloaders (e.g. config.txt).  
 > You can feel better about this by thinking about this configuration as similar to BIOS settings.
 
+## Webserver
+
+AWS EC2 Spot Request instance managed by the flake and attached to a network interface with static public IP.
+
+Find the appropriate official NixOS AMI.
+
+```sh
+aws ec2 describe-images \
+  --profile {your_profile} \
+  --owners 427812963091 \
+  --filters \
+    "Name=name,Values=nixos/*-aarch64-linux" \
+    "Name=state,Values=available" \
+  --query 'reverse(sort_by(Images, &CreationDate))[:10].[ImageId,Name,CreationDate]' \
+  --output text
+```
+
+Find the network interface to attach:
+
+```sh
+aws ec2 describe-network-interfaces \
+  --profile {your_profile} \
+  --query 'NetworkInterfaces[*].[
+    NetworkInterfaceId,
+    Status,
+    AvailabilityZone,
+    PrivateIpAddress,
+    Association.PublicIp,
+    Attachment.InstanceId,
+    Description
+  ]' \
+  --output table
+```
+
+List keys
+
+```
+aws ec2 describe-key-pairs \
+    --profile {your_profile} \
+    --query 'KeyPairs[*].KeyName' \
+    --output text
+```
+
+Create the Spot Request
+
+```sh
+aws ec2 request-spot-instances \
+  --profile {your_profile} \
+  --type persistent \
+  --instance-interruption-behavior hibernate \
+  --launch-specification '{
+    "ImageId": "{ami}",
+    "InstanceType": "t4g.micro",
+    "KeyName": "{key_name}",
+    "NetworkInterfaces": [
+      {"DeviceIndex": 0, "NetworkInterfaceId": "{net_interface}"}
+    ],
+    "BlockDeviceMappings": [
+      {
+        "DeviceName": "/dev/xvda",
+        "Ebs": {
+          "VolumeType": "gp3",
+          "VolumeSize": 16,
+          "Encrypted": true,
+          "DeleteOnTermination": false
+        }
+      }
+    ]
+  }'
+```
+
+Switch the configuration
+
+```sh
+nixos-rebuild switch \
+  --flake .#webserver \
+  --target-host root@{host_ip_address}
+```
+
 ## Changes and updates workflow
 
 As a result of the installation we should have flake repo in `/etc/nixos` with the generated and gitignored `hardware.nix`.
