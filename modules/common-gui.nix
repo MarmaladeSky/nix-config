@@ -56,6 +56,8 @@
     tor-browser
     freetube
     thunderbird
+    claws-mail
+    evolution
 
     # Printing
     system-config-printer
