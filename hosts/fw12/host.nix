@@ -86,15 +86,12 @@
 
     xserver = {
       enable = true;
-      displayManager = {
-        lightdm.enable = false;
-      };
+      displayManager.lightdm.enable = true;
       windowManager.awesome.enable = true;
       xkb.layout = "us,ru";
       xkb.variant = ",";
       xkb.options = "grp:caps_toggle";
     };
-    displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
   };
   environment.gnome.excludePackages = with pkgs; [
