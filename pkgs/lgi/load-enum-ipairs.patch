@@ -1,0 +1,23 @@
+Iterate enum values via ipairs unconditionally.
+
+Upstream lgi (PR #352) gates this on GLib.check_version(2, 87, 0), but in
+nixpkgs glib is 2.86 with the new table-format enum values backported via
+glib-2.86.0.patch — so the version check would lie and route to the
+broken fromarray() path. Using ipairs unconditionally works because
+nixpkgs's glib already provides values as a Lua table.
+
+Applies on top of nixpkgs's lgi glib-2.86.0.patch (which changes
+TypeClass.ref -> .get and drops :unref()).
+
+--- a/lgi/ffi.lua
++++ b/lgi/ffi.lua
+@@ -82,8 +82,7 @@
+    local type_class = GObject.TypeClass.get(gtype)
+    local enum_class = core.record.cast(
+       type_class, is_flags and GObject.FlagsClass or GObject.EnumClass)
+-   for i = 0, enum_class.n_values - 1 do
+-      local val = core.record.fromarray(enum_class.values, i)
++   for _, val in ipairs(enum_class.values) do
+       enum_component[core.upcase(val.value_nick):gsub('%-', '_')] = val.value
+    end
+    return enum_component

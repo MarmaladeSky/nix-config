@@ -10,6 +10,30 @@
       "steam-run"
     ];
 
+  # Patch lua5_2's lgi: iterate enum values with ipairs (load_enum was crashing on
+  # "lgi.record expected, got table" because nixpkgs's glib 2.86 has the new
+  # table-format enum values backported). See pkgs/lgi/load-enum-ipairs.patch.
+  # Related upstream: https://github.com/lgi-devs/lgi/pull/352
+  nixpkgs.overlays = [
+    (final: prev:
+      let
+        patchedLua5_2 = prev.lua5_2.override {
+          packageOverrides = lfinal: lprev: {
+            lgi = lprev.lgi.overrideAttrs (oldAttrs: {
+              patches = (oldAttrs.patches or [ ]) ++ [
+                ../pkgs/lgi/load-enum-ipairs.patch
+              ];
+            });
+          };
+        };
+      in
+      {
+        lua5_2 = patchedLua5_2;
+        awesome = prev.awesome.override { lua = patchedLua5_2; };
+      }
+    )
+  ];
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
