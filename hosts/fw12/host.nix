@@ -114,10 +114,6 @@
   };
 
 
-  programs.ladybird = {
-    enable = true;
-  };
-
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
