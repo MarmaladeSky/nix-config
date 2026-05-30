@@ -57,6 +57,7 @@
     wget
     sshfs
     qbittorrent-enhanced
+    weechat
 
     # Development
     git
