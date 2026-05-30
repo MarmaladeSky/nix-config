@@ -78,5 +78,7 @@
     scala
     sbt
     mill
+    # Zig
+    zig
   ];
 }
