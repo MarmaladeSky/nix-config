@@ -6,6 +6,8 @@
     disko.url = "github:nix-community/disko";
     nixos-hardware.url = "github:NixOS/nixos-hardware";
     home-manager.url = "github:nix-community/home-manager";
+    noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
+    noctalia-shell.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -15,6 +17,7 @@
       disko,
       nixos-hardware,
       home-manager,
+      noctalia-shell,
       ...
     }:
     {
@@ -22,7 +25,7 @@
         fw12 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko home-manager;
+            inherit disko home-manager noctalia-shell;
             hostname = "fw12";
           };
           modules = [

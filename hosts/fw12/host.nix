@@ -1,4 +1,4 @@
-{ pkgs, lib, disko, ... }:
+{ pkgs, lib, disko, noctalia-shell, ... }:
 {
   imports = [
     disko.nixosModules.disko
@@ -99,17 +99,107 @@
     gnome-user-docs
   ];
 
-  # hyprland
-  programs.hyprland = {
-    enable = true;
-    withUWSM = true;
-    xwayland.enable = true;
-  };
-  xdg.portal = {
-    enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-hyprland ];
-  };
 
+  # niri
+  programs.niri.enable = true;
+  home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
+    spawn-at-startup "noctalia-shell"
+
+    prefer-no-csd
+
+    screenshot-path "~/Pictures/Screenshots/Screenshot from %Y-%m-%d %H-%M-%S.png"
+
+    animations {
+        off
+    }
+
+    input {
+        keyboard {
+            xkb {
+                layout "us,ru"
+                options "grp:caps_toggle"
+            }
+        }
+        touchpad {
+            tap
+        }
+        focus-follows-mouse
+    }
+
+    layout {
+        gaps 1
+        default-column-width { proportion 0.5; }
+        focus-ring {
+            width 1
+        }
+        border {
+            off
+            width 1
+        }
+        struts {
+            left 0
+            right 0
+            top 0
+            bottom 0
+        }
+    }
+
+    output "eDP-1" {
+        scale 1
+    }
+
+    binds {
+        Mod+Shift+Slash { show-hotkey-overlay; }
+
+        Mod+T { spawn "sakura"; }
+        Mod+P { spawn "rofi" "-show" "drun"; }
+        Mod+Shift+C { close-window; }
+        Mod+V { toggle-window-floating; }
+
+        Mod+Left  { focus-column-left; }
+        Mod+Right { focus-column-right; }
+        Mod+Up    { focus-window-up; }
+        Mod+Down  { focus-window-down; }
+        Mod+H     { focus-column-left; }
+        Mod+L     { focus-column-right; }
+        Mod+K     { focus-window-up; }
+        Mod+J     { focus-window-down; }
+
+        Mod+Ctrl+Left  { move-column-left; }
+        Mod+Ctrl+Right { move-column-right; }
+        Mod+Ctrl+Up    { move-window-up; }
+        Mod+Ctrl+Down  { move-window-down; }
+
+        Mod+Page_Down { focus-workspace-down; }
+        Mod+Page_Up   { focus-workspace-up; }
+
+        Mod+1 { focus-workspace 1; }
+        Mod+2 { focus-workspace 2; }
+        Mod+3 { focus-workspace 3; }
+        Mod+4 { focus-workspace 4; }
+        Mod+5 { focus-workspace 5; }
+
+        Mod+Shift+1 { move-column-to-workspace 1; }
+        Mod+Shift+2 { move-column-to-workspace 2; }
+        Mod+Shift+3 { move-column-to-workspace 3; }
+        Mod+Shift+4 { move-column-to-workspace 4; }
+        Mod+Shift+5 { move-column-to-workspace 5; }
+
+        Mod+R       { switch-preset-column-width; }
+        Mod+F       { maximize-column; }
+        Mod+Shift+F { fullscreen-window; }
+        Mod+C       { center-column; }
+        Mod+Minus   { set-column-width "-10%"; }
+        Mod+Equal   { set-column-width "+10%"; }
+
+        Print      { screenshot; }
+
+        Ctrl+Print { screenshot-screen; }
+        Alt+Print  { screenshot-window; }
+
+        Mod+Shift+E { quit; }
+    }
+  '';
 
   virtualisation.docker = {
     enable = true;
@@ -138,6 +228,10 @@
     gnomeExtensions.appindicator
     gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
+
+    # Wayland/Niri
+    rofi
+    noctalia-shell.packages.${pkgs.system}.default
 
     # part of virtualization
     kubectl

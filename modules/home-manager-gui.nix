@@ -18,8 +18,6 @@
     '';
   };
 
-  programs.waybar.enable = true;
-
   home-manager.users.user = { 
 
     home.packages = with pkgs; [
@@ -32,9 +30,6 @@
       networkmanagerapplet
       networkmanager-openvpn
 
-      # hyprland
-      rofi
-      font-awesome
     ]; 
 
     home.file.".config/awesome".source = builtins.fetchGit {
