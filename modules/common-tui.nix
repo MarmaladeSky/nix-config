@@ -57,7 +57,6 @@
     wget
     sshfs
     qbittorrent-enhanced
-    aerc
 
     # Development
     git
