@@ -107,6 +107,11 @@
   programs.niri.enable = true;
   home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
     spawn-at-startup "noctalia-shell"
+    spawn-at-startup "xwayland-satellite"
+
+    environment {
+        DISPLAY ":0"
+    }
 
     prefer-no-csd
 
@@ -237,6 +242,7 @@
     # Wayland/Niri
     rofi
     noctalia-shell.packages.${pkgs.system}.default
+    xwayland-satellite
 
     # part of virtualization
     kubectl
