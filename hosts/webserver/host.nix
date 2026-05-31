@@ -1,10 +1,10 @@
-{ modulesPath, pkgs, ... }:
+{ modulesPath, ... }:
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
   ];
 
-  system.stateVersion = "25.11";
+  system.stateVersion = "26.05";
   ec2.efi = true;
 
   nix.settings.experimental-features = [
@@ -15,16 +15,10 @@
   networking.hostName = "webserver";
   networking.firewall.allowedTCPPorts = [ 8080 ];
 
-  services.darkhttpd = {
+  services.caddy = {
     enable = true;
-    port = 8080;
-    address = "::";
-    rootDir = pkgs.writeTextDir "index.html" ''
-      <!doctype html>
-      <html>
-        <head><title>webserver</title></head>
-        <body><h1>Hello from darkhttpd</h1></body>
-      </html>
+    virtualHosts.":8080".extraConfig = ''
+      respond "Hello from caddy"
     '';
   };
 }
