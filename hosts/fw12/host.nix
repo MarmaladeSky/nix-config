@@ -195,6 +195,8 @@
         Mod+Minus   { set-column-width "-10%"; }
         Mod+Equal   { set-column-width "+10%"; }
 
+        Alt+Shift+F4 { spawn "sh" "-c" "flameshot gui"; }
+
         Print      { screenshot; }
 
         Ctrl+Print { screenshot-screen; }
