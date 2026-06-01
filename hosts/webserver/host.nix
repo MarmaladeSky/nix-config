@@ -1,4 +1,7 @@
 { modulesPath, ... }:
+let
+  private = import ../../private.nix;
+in
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
@@ -13,11 +16,13 @@
   ];
 
   networking.hostName = "webserver";
-  networking.firewall.allowedTCPPorts = [ 8080 ];
+  networking.firewall.allowedTCPPorts = [ 80 443 ];
 
   services.caddy = {
     enable = true;
-    virtualHosts.":8080".extraConfig = ''
+    email = private.acmeEmail;
+    acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";
+    virtualHosts."junkie.digital".extraConfig = ''
       respond "Hello from caddy"
     '';
   };
