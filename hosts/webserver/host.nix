@@ -20,7 +20,7 @@ in
 
   services.caddy = {
     enable = true;
-    email = private.acmeEmail;
+    email = "email@example.com";
     acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";
     virtualHosts."junkie.digital".extraConfig = ''
       respond "Hello from caddy"
