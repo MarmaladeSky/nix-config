@@ -30,7 +30,6 @@
     enable = true;
     email = "{$ACME_EMAIL}";
     environmentFile = config.sops.secrets."caddy-env".path;
-    acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";
     virtualHosts."junkie.digital".extraConfig = ''
       respond "Hello from caddy"
     '';
