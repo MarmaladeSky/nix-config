@@ -1,4 +1,4 @@
-{ config, modulesPath, ... }:
+{ config, modulesPath, pkgs, ... }:
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
@@ -6,6 +6,8 @@
 
   system.stateVersion = "26.05";
   ec2.efi = true;
+
+  environment.systemPackages = [ pkgs.nettools ];
 
   nix.settings.experimental-features = [
     "nix-command"
