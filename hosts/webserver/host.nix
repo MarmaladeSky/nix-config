@@ -1,7 +1,4 @@
 { modulesPath, ... }:
-let
-  private = import ../../private.nix;
-in
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
