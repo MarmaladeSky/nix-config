@@ -8,6 +8,8 @@
     home-manager.url = "github:nix-community/home-manager";
     noctalia-shell.url = "github:noctalia-dev/noctalia-shell";
     noctalia-shell.inputs.nixpkgs.follows = "nixpkgs";
+    sops-nix.url = "github:Mic92/sops-nix";
+    sops-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -18,6 +20,7 @@
       nixos-hardware,
       home-manager,
       noctalia-shell,
+      sops-nix,
       ...
     }:
     {
@@ -98,6 +101,7 @@
             hostname = "webserver";
           };
           modules = [
+            sops-nix.nixosModules.sops
             ./hosts/webserver/host.nix
           ];
         };

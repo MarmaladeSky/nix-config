@@ -1,4 +1,4 @@
-{ modulesPath, ... }:
+{ config, modulesPath, ... }:
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
@@ -15,9 +15,19 @@
   networking.hostName = "webserver";
   networking.firewall.allowedTCPPorts = [ 80 443 ];
 
+  sops = {
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets."caddy-env" = {
+      sopsFile = ../../secrets/caddy-env;
+      format = "binary";
+      owner = "caddy";
+    };
+  };
+
   services.caddy = {
     enable = true;
-    email = "email@example.com";
+    email = "{$ACME_EMAIL}";
+    environmentFile = config.sops.secrets."caddy-env".path;
     acmeCA = "https://acme-staging-v02.api.letsencrypt.org/directory";
     virtualHosts."junkie.digital".extraConfig = ''
       respond "Hello from caddy"
