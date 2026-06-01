@@ -1,0 +1,13 @@
+keys:
+  - &user_gpg 88D15D7AF7672C866A8F839C56B2CCA5F83AECB4
+  - &backup_age age1s8wnsq0d99fyqfc0fzp3448kvujt55p4n8urxnk5pmfg82qcj5ksww2clg
+  - &webserver_age age1telukxwt7whx89rw7phgh0vj3a6uvgpu7rslacmhdmtupgn05g6qlyhkh6
+
+creation_rules:
+  - path_regex: secrets/.*
+    key_groups:
+      - pgp:
+          - *user_gpg
+        age:
+          - *backup_age
+          - *webserver_age
