@@ -105,11 +105,11 @@
 
     # Development
     dbeaver-bin
-    (jetbrains.datagrip.override { jdk = pkgs.openjdk25; })
-    (jetbrains.goland.override { jdk = pkgs.openjdk25; })
-    (jetbrains.idea.override { jdk = pkgs.openjdk25; })
-    (jetbrains.pycharm.override { jdk = pkgs.openjdk25; })
-    (jetbrains.rust-rover.override { jdk = pkgs.openjdk25; })
+    jetbrains.datagrip
+    jetbrains.goland
+    jetbrains.idea
+    jetbrains.pycharm
+    jetbrains.rust-rover
     vscodium
     visualvm
     claude-code
