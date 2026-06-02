@@ -107,10 +107,10 @@
   programs.niri.enable = true;
   home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
     spawn-at-startup "noctalia-shell"
-    spawn-at-startup "xwayland-satellite"
+    spawn-at-startup "xwayland-satellite" ":69"
 
     environment {
-        DISPLAY ":0"
+        DISPLAY ":69"
     }
 
     prefer-no-csd
