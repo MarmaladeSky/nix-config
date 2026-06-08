@@ -135,14 +135,13 @@
     }
 
     layout {
-        gaps 1
+        gaps 0
         default-column-width { proportion 0.5; }
         focus-ring {
-            width 1
+            off
         }
         border {
             off
-            width 1
         }
         struts {
             left 0
