@@ -253,5 +253,9 @@
     # Scala
     bloop
     clang
+
+    # 3d printing
+    prusa-slicer
+    freecad
   ];
 }
