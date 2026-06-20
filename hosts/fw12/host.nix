@@ -249,6 +249,10 @@
     kubernetes-helm
     k9s
 
+    # games
+    wine
+    winetricks
+
     # Development
     # Scala
     bloop
