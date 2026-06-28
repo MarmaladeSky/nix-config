@@ -240,7 +240,7 @@
 
     # Wayland/Niri
     rofi
-    noctalia-shell.packages.${pkgs.system}.default
+    noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
     xwayland-satellite
 
     # part of virtualization
