@@ -45,6 +45,7 @@
             hostname = "fw13";
           };
           modules = [
+            nixos-hardware.nixosModules.framework-intel-core-ultra-series1
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./hosts/fw13/hardware.nix
