@@ -31,14 +31,25 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.blacklistedKernelModules = [
-    "nouveau"
-    "nvidia"
-    "nvidiafb"
-    "nvidia-drm"
-    "nvidia-uvm"
-    "nvidia-modeset"
-  ]; # default: eGPU disconnected
+  # default: eGPU connected (nvidia). See nvidia-egpu-disconnected specialisation.
+  boot.blacklistedKernelModules = [ "nouveau" ];
+  boot.kernelParams = [ "video=eDP-1:d" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = false;
+    nvidiaSettings = true;
+    powerManagement.enable = false;
+    powerManagement.finegrained = false;
+    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    forceFullCompositionPipeline = true;
+
+    prime = {
+      offload.enable = false;
+      reverseSync.enable = false;
+      sync.enable = false;
+    };
+  };
 
   networking.hostName = "fw13";
 
@@ -229,10 +240,35 @@ in
   # Configure keymap in X11
   services = {
     xserver = {
-      videoDrivers = [
-        "modesetting"
-        "fbdev"
-      ]; # default: eGPU disconnected
+      videoDrivers = [ "nvidia" ]; # default: eGPU connected
+
+      defaultDepth = 24;
+      config = ''
+        Section "ServerLayout"
+          Identifier "layout"
+          Screen 0 "screen0"
+          Option "AllowExternalGpus" "True"
+        EndSection
+
+        Section "Extensions"
+          Option "Composite" "Enable"
+        EndSection
+
+        Section "Device"
+          Identifier "eGPU"
+          Driver "nvidia"
+          BusID "PCI:129@0:0:0"
+          Option "AllowEmptyInitialConfiguration" "True"
+          Option "AllowExternalGpus" "True"
+          Option "AddARGBGLXVisuals" "True"
+        EndSection
+
+        Section "Screen"
+          Identifier "screen0"
+          Device "eGPU"
+          DefaultDepth 24
+        EndSection
+      '';
 
       dpi = 180;
       xkb = {
@@ -281,58 +317,6 @@ in
     # };
   };
 
-  specialisation."nvidia-egpu-connected".configuration = {
-    boot.blacklistedKernelModules = lib.mkForce [ "nouveau" ];
-
-    services.xserver.videoDrivers = lib.mkForce [ "nvidia" ];
-
-    boot.kernelParams = [ "video=eDP-1:d" ];
-
-    hardware.nvidia = {
-      modesetting.enable = true;
-      open = false;
-      nvidiaSettings = true;
-      powerManagement.enable = false;
-      powerManagement.finegrained = false;
-      package = config.boot.kernelPackages.nvidiaPackages.beta;
-      forceFullCompositionPipeline = true;
-
-      prime = {
-        offload.enable = lib.mkForce false;
-        reverseSync.enable = lib.mkForce false;
-        sync.enable = lib.mkForce false;
-      };
-    };
-
-    services.xserver.defaultDepth = 24;
-    services.xserver.config = lib.mkForce ''
-      Section "ServerLayout"
-        Identifier "layout"
-        Screen 0 "screen0"
-        Option "AllowExternalGpus" "True"
-      EndSection
-
-      Section "Extensions"
-        Option "Composite" "Enable"
-      EndSection
-
-      Section "Device"
-        Identifier "eGPU"
-        Driver "nvidia"
-        BusID "PCI:129@0:0:0"
-        Option "AllowEmptyInitialConfiguration" "True"
-        Option "AllowExternalGpus" "True"
-        Option "AddARGBGLXVisuals" "True"
-      EndSection
-
-      Section "Screen"
-        Identifier "screen0"
-        Device "eGPU"
-        DefaultDepth 24
-      EndSection
-    '';
-  };
-
   specialisation."nvidia-egpu-disconnected".configuration = {
     boot.blacklistedKernelModules = lib.mkForce [
       "nouveau"
@@ -342,6 +326,12 @@ in
       "nvidia-uvm"
       "nvidia-modeset"
     ];
+
+    # Undo the base config's eGPU-specific settings so the laptop runs on its
+    # internal display + Intel iGPU. Drop "video=eDP-1:d" (base) but keep the
+    # Framework module's "nvme.noacpi=1" power param.
+    boot.kernelParams = lib.mkForce [ "nvme.noacpi=1" ];
+    services.xserver.config = lib.mkForce "";
 
     hardware.nvidia-container-toolkit.enable = lib.mkForce false;
 
