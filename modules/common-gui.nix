@@ -32,6 +32,7 @@
       drivers = with pkgs; [
         cups-filters
         gutenprint
+        brlaser
       ];
 
       browsed.enable = false;
