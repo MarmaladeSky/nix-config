@@ -19,7 +19,7 @@
     agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-curses;
+      pinentryPackage = pkgs.pinentry-tty;
     };
   };
 
