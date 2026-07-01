@@ -41,13 +41,15 @@
         fw13 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko;
+            inherit disko home-manager;
             hostname = "fw13";
           };
           modules = [
             nixos-hardware.nixosModules.framework-intel-core-ultra-series1
             ./modules/common-tui.nix
             ./modules/common-gui.nix
+            ./modules/home-manager-tui.nix
+            ./modules/home-manager-gui.nix
             ./hosts/fw13/hardware.nix
             ./hosts/fw13/host.nix
           ];

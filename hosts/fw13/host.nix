@@ -217,16 +217,8 @@ in
   # Framework specific
   services.fwupd.enable = true;
 
-  # i3lock
-  security.pam.services.i3lock = {
-    enable = true;
-    text = ''
-      auth include login
-      account include login
-      password include login
-      session include login
-    '';
-  };
+  # i3lock: security.pam.services.i3lock comes from home-manager-gui.nix.
+  # fw13 additionally provides i3lock-color.
   security.pam.services.i3lock-color = {
     enable = true;
     text = ''
@@ -356,7 +348,6 @@ in
       "libvirtd"
     ];
     packages = with pkgs; [ ];
-    shell = pkgs.fish;
   };
 
   users.users.sandbox = {
