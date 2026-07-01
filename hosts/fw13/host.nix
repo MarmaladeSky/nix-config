@@ -100,19 +100,6 @@ in
   };
   systemd.services.virt-secret-init-encryption.enable = false;
 
-  # Backlight
-#  services.udev.packages = lib.singleton (
-#    pkgs.writeTextFile {
-#      name = "my-rules";
-#      text = ''
-#        SUBSYSTEM=="backlight", ACTION=="add",
-#        RUN+="${pkgs.coreutils}/bin/chgrp video $sys$devpath/brightness",
-#        RUN+="${pkgs.coreutils}/bin/chmod g+w $sys$devpath/brightness"
-#      '';
-#      destination = "/etc/udev/rules.d/98-my.rules";
-#    }
-#  );
-
   # IOS (usbmuxd itself is enabled by common-tui; fw13 just pins usbmuxd2)
   services.usbmuxd.package = pkgs.usbmuxd2;
 
@@ -485,12 +472,11 @@ in
 
   environment.systemPackages = with pkgs; [
     # Editors
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     emacs
+
+    # tools
     parallel
-    #librewolf insecure
-    # brave: provided by common-gui, customized to the vulkan build via the
-    # nixpkgs.overlays override above.
     chromium
     imagemagick
     libwebp
@@ -531,7 +517,6 @@ in
     discord
     k9s
     kubernetes-helm
-    # pycharm, rust-rover, datagrip come from common-gui (plain builds).
     jetbrains.idea-oss
     jetbrains.webstorm
     jetbrains.phpstorm
@@ -570,13 +555,12 @@ in
     dig
 
     # Finance
-    #bitcoin
+    # bitcoin
     (bitcoin.override {
       sqlite = sqlite.overrideAttrs (old: {
         buildInputs = (old.buildInputs or []) ++ [ zlib ];
       });
     })
-    #exodus
 
     # Development
     # Neovim language servers
