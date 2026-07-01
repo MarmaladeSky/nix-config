@@ -35,6 +35,17 @@ in
   boot.blacklistedKernelModules = [ "nouveau" ];
   boot.kernelParams = [ "video=eDP-1:d" ];
 
+  # Canon as webcam
+  boot.extraModulePackages = with config.boot.kernelPackages;
+  [ v4l2loopback.out ];
+  boot.kernelModules = [
+    "v4l2loopback"
+  ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
+    options nvidia NVreg_EnableGpuFirmware=0
+  '';
+
   hardware.nvidia = {
     modesetting.enable = true;
     open = false;
@@ -51,21 +62,20 @@ in
     };
   };
 
-  networking.hostName = "fw13";
+  networking {
+    hostName = "fw13";
+    firewall = {
+      enable = true;
+      allowedUDPPorts = [ 5353 ];
+      allowedTCPPorts = [ 2283 8000 9001 631 ];
+    };
+    useNetworkd = false;
+    useHostResolvConf = false;
+    resolvconf.enable = true;
+  }
 
-  # networking.networkmanager.enable comes from common-gui.
   # DNS
-  networking.useNetworkd = false;
-  networking.useHostResolvConf = false;
-  networking.resolvconf.enable = true;
   services.resolved.enable = false;
-
-  # Commented out during flake migration: falling back to common-gui's
-  # networkmanager.wifi.backend = "wpa_supplicant". Re-enable (with lib.mkForce)
-  # if wpa_supplicant turns out not to work on fw13.
-  # networking.wireless.iwd.enable = true;
-  # networking.networkmanager.wifi.backend = "iwd";
-  # networking.networkmanager.plugins (networkmanager-openvpn) comes from common-gui.
 
   # Docker
   virtualisation.docker = {
@@ -73,12 +83,10 @@ in
     extraOptions = "--default-ulimit nofile=65535:65535";
     rootless = {
       enable = true;
-      #setSocketVariable = true;
     };
     daemon.settings = {
       data-root = "/home/docker-data";
     };
-    #enableNvidia = true;
   };
   hardware.nvidia-container-toolkit.enable = false;
 
@@ -125,7 +133,6 @@ in
 
     # Backend selection (portals.conf semantics)
     config.common.default = ["xapp" "gtk" ];
-    # (string also works in many cases, but list is the canonical format)
   };
 
   # Flatpack
@@ -149,16 +156,6 @@ in
   # Thunderbolt service
   services.hardware.bolt.enable = true;
 
-  # Canon as webcam
-  boot.extraModulePackages = with config.boot.kernelPackages;
-  [ v4l2loopback.out ];
-  boot.kernelModules = [
-    "v4l2loopback"
-  ];
-  boot.extraModprobeConfig = ''
-    options v4l2loopback exclusive_caps=1 card_label="Virtual Camera"
-    options nvidia NVreg_EnableGpuFirmware=0
-  '';
 
   # Mouse
   services.libinput.mouse.accelSpeed = "0.6";
@@ -206,7 +203,6 @@ in
   };
   hardware.graphics = {
     enable = true;
-
     extraPackages = intelGraphicsPackages;
   };
 
@@ -296,17 +292,6 @@ in
       enable = true;
     };
 
-    # avahi comes from common-gui.
-    # printing: undecided for fw13; inheriting common-gui's for now. Original
-    # fw13 config parked below.
-    # printing = {
-    #   enable = true;
-    #   drivers = with pkgs; [
-    #     cups-filters
-    #     cups-browsed
-    #   ];
-    #   browsed.enable = true;
-    # };
   };
 
   specialisation."nvidia-egpu-disconnected".configuration = {
@@ -422,8 +407,7 @@ in
   programs.steam.gamescopeSession.enable = true; # Integrates with programs.steam
 
   # fw13 needs the vulkan (--use-angle) Brave build. Override pkgs.brave via an
-  # overlay so common-gui's `brave` resolves to this customized version instead
-  # of colliding with a second `brave` in systemPackages.
+  # overlay so common-gui's `brave` resolves to this customized version
   nixpkgs.overlays = [
     (final: prev: {
       brave =
@@ -606,12 +590,6 @@ in
   };
 
   systemd.user.services.pipewire-pulse.path = [ pkgs.pulseaudio ];
-
-  networking.firewall = {
-    enable = true;
-    allowedUDPPorts = [ 5353 ];
-    allowedTCPPorts = [ 2283 8000 9001 631 ];
-  };
 
   # Java
   programs.java.enable = true;
