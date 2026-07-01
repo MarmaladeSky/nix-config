@@ -51,6 +51,7 @@
 
     # Encryption
     gnupg
+    pinentry-tty
 
     # Networking
     frp
