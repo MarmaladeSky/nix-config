@@ -20,8 +20,8 @@
   sops = {
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
     secrets."caddy-env" = {
-      sopsFile = ../../secrets/caddy-env;
-      format = "binary";
+      sopsFile = ../../secrets/caddy.env;
+      format = "dotenv";
       owner = "caddy";
     };
   };
