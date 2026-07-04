@@ -1,4 +1,4 @@
-# NixOS multidevice configuration [Work In Progress]
+# NixOS multidevice configuration
 
 An example of multiple devices management via Nix Flake.
 
