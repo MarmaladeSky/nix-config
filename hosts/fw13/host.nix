@@ -62,7 +62,7 @@ in
     };
   };
 
-  networking {
+  networking = {
     hostName = "fw13";
     firewall = {
       enable = true;
@@ -72,7 +72,7 @@ in
     useNetworkd = false;
     useHostResolvConf = false;
     resolvconf.enable = true;
-  }
+  };
 
   # DNS
   services.resolved.enable = false;
