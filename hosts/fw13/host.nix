@@ -465,7 +465,7 @@ in
     dconf
     easyeffects
     krita
-    freecad
+    # freecad dependency build failure
     mangohud
     networkmanagerapplet
     networkmanager-openvpn

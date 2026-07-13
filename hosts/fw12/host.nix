@@ -260,6 +260,6 @@
 
     # 3d printing
     prusa-slicer
-    freecad
+    # freecad dependency build failure
   ];
 }
