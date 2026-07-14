@@ -62,6 +62,7 @@
 
     # Development
     git
+    gitui
     nixfmt
     awscli2
     sqlite
