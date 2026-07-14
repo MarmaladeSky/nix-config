@@ -2,6 +2,7 @@ keys:
   - &user_gpg 88D15D7AF7672C866A8F839C56B2CCA5F83AECB4
   - &backup_age age1s8wnsq0d99fyqfc0fzp3448kvujt55p4n8urxnk5pmfg82qcj5ksww2clg
   - &webserver_age age1telukxwt7whx89rw7phgh0vj3a6uvgpu7rslacmhdmtupgn05g6qlyhkh6
+  - &fw12_age age1rpqgn629y42lvms4pw45aqyv80wpyje7dprk4g92c3k9g2s9qftqauh0yp
 
 creation_rules:
   - path_regex: secrets/.*
@@ -11,3 +12,4 @@ creation_rules:
         age:
           - *backup_age
           - *webserver_age
+          - *fw12_age
