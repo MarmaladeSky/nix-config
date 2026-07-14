@@ -33,6 +33,7 @@
           };
           modules = [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel
+            sops-nix.nixosModules.sops
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./modules/home-manager-tui.nix

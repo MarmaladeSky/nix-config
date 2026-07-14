@@ -1,4 +1,11 @@
-{ pkgs, lib, disko, noctalia-shell, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  disko,
+  noctalia-shell,
+  ...
+}:
 {
   imports = [
     disko.nixosModules.disko
@@ -27,6 +34,15 @@
   networking.hostName = "fw12";
   networking.networkmanager.enable = true;
 
+  sops = {
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets."easytier-env" = {
+      sopsFile = ../../secrets/easytier.env;
+      format = "dotenv";
+      owner = "root";
+    };
+  };
+
   services.udev.extraRules = ''
     SUBSYSTEM=="backlight", ACTION=="add", \
     RUN+="${pkgs.coreutils}/bin/chgrp video /sys$devpath/brightness", \
@@ -51,6 +67,19 @@
 
     power-profiles-daemon.enable = false;
     auto-cpufreq.enable = true;
+
+    easytier = {
+      enable = true;
+      instances.default = {
+        settings = {
+          hostname = "fw12";
+          ipv4 = "10.1.1.2/24";
+        };
+        environmentFiles = [
+          config.sops.secrets."easytier-env".path
+        ];
+      };
+    };
 
     syncthing = {
       enable = true;
@@ -101,7 +130,6 @@
     gnome-tour
     gnome-user-docs
   ];
-
 
   # niri
   programs.niri.enable = true;
@@ -230,7 +258,6 @@
     };
     allowedBridges = [ "br0" ];
   };
-
 
   environment.systemPackages = with pkgs; [
     # Window Management
