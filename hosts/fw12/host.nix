@@ -56,6 +56,7 @@
       "networkmanager"
       "video"
       "input"
+      "dialout"
     ];
   };
 

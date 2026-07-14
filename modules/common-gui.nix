@@ -63,8 +63,8 @@
     # Printing
     system-config-printer
 
-    # Printing
-    system-config-printer
+    # Networking
+    qbittorrent-enhanced
 
     # Files
     dropbox

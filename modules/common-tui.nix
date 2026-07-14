@@ -57,8 +57,8 @@
     frp
     wget
     sshfs
-    qbittorrent-enhanced
     weechat
+    nettools
 
     # Development
     git
