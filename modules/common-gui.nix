@@ -96,6 +96,12 @@
     vscodium
     visualvm
     claude-code
+    (writeShellScriptBin "claude-personal" ''
+      CLAUDE_CONFIG_DIR="$HOME/.claude-personal" exec ${lib.getExe claude-code} "$@"
+    '')
+    (writeShellScriptBin "claude-work" ''
+      CLAUDE_CONFIG_DIR="$HOME/.claude-work" exec ${lib.getExe claude-code} "$@"
+    '')
     sox
     codex
     opencode
