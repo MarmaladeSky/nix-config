@@ -134,6 +134,14 @@
 
   # niri
   programs.niri.enable = true;
+  home-manager.users.user.home.file.".config/flameshot/flameshot.ini" = {
+    force = true;
+    text = ''
+      [General]
+      contrastOpacity=188
+      useX11LegacyScreenshot=true
+    '';
+  };
   home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
     spawn-at-startup "noctalia"
     spawn-at-startup "xwayland-satellite" ":69"
