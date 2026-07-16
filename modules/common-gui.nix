@@ -79,9 +79,6 @@
     mpv
     vlc
 
-    # Utils
-    flameshot
-
     # Shell
     sakura
     xclip
