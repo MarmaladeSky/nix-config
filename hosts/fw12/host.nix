@@ -110,13 +110,6 @@
       };
     };
 
-    gnome = {
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-      gcr-ssh-agent.enable = false;
-    };
-
     xserver = {
       enable = true;
       displayManager.lightdm.enable = true;
@@ -125,12 +118,20 @@
       xkb.variant = ",";
       xkb.options = "grp:caps_toggle";
     };
-    desktopManager.gnome.enable = true;
+
+    # Non-GNOME replacements for the app plumbing GNOME used to provide
+    # (gvfs for GTK/Electron file dialogs+trash, dconf for gsettings-backed
+    # app prefs).
+    gvfs.enable = true;
+    udisks2.enable = true;
+    upower.enable = true;
   };
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-user-docs
-  ];
+  programs.dconf.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
 
   # niri
   programs.niri.enable = true;
@@ -142,6 +143,7 @@
       useX11LegacyScreenshot=true
     '';
   };
+
   home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
     spawn-at-startup "noctalia"
     spawn-at-startup "xwayland-satellite" ":69"
@@ -270,8 +272,6 @@
 
   environment.systemPackages = with pkgs; [
     # Window Management
-    gnomeExtensions.appindicator
-    gnome-tweaks
     nautilus # implicitly required by vscodium to open file dialogs
 
     # Wayland/Niri
