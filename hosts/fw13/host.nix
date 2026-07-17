@@ -74,8 +74,30 @@ in
     resolvconf.enable = true;
   };
 
+  sops = {
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets."easytier-env" = {
+      sopsFile = ../../secrets/easytier.env;
+      format = "dotenv";
+      owner = "root";
+    };
+  };
+
   # DNS
   services.resolved.enable = false;
+
+  services.easytier = {
+    enable = true;
+    instances.default = {
+      settings = {
+        hostname = "fw13";
+        ipv4 = "10.1.1.3/24";
+      };
+      environmentFiles = [
+        config.sops.secrets."easytier-env".path
+      ];
+    };
+  };
 
   # Docker
   virtualisation.docker = {

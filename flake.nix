@@ -50,6 +50,7 @@
           };
           modules = [
             nixos-hardware.nixosModules.framework-intel-core-ultra-series1
+            sops-nix.nixosModules.sops
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./modules/home-manager-tui.nix
