@@ -89,22 +89,62 @@
       user = "user";
       group = "users";
       settings = {
+        devices =
+          let
+            ids =
+              if builtins.pathExists ../../syncthing-devices.nix then
+                import ../../syncthing-devices.nix
+              else
+                {
+                  fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
+                  fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
+                  thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
+                  pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
+                };
+          in
+          {
+            fw12.id = ids.fw12;
+            fw13.id = ids.fw13;
+            thinkpad.id = ids.thinkpad;
+            pi.id = ids.pi;
+          };
+
         folders = {
           "Pictures" = {
             path = "/home/user/Pictures";
             ignorePerms = false;
+            devices = [
+              "fw13"
+              "thinkpad"
+              "pi"
+            ];
           };
           "Documents" = {
             path = "/home/user/Documents";
             ignorePerms = false;
+            devices = [
+              "fw13"
+              "thinkpad"
+              "pi"
+            ];
           };
           "Videos" = {
             path = "/home/user/Videos";
             ignorePerms = false;
+            devices = [
+              "fw13"
+              "thinkpad"
+              "pi"
+            ];
           };
           "Music" = {
             path = "/home/user/Music";
             ignorePerms = false;
+            devices = [
+              "fw13"
+              "thinkpad"
+              "pi"
+            ];
           };
         };
       };

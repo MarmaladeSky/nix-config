@@ -66,6 +66,7 @@
             hostname = "thinkpad";
           };
           modules = [
+            sops-nix.nixosModules.sops
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./modules/home-manager-tui.nix
@@ -81,6 +82,7 @@
             hostname = "raspberry";
           };
           modules = [
+            sops-nix.nixosModules.sops
             ./modules/common-tui.nix
             nixos-hardware.nixosModules."raspberry-pi-4"
             ./hosts/pi/hardware.nix

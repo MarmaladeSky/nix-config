@@ -4,6 +4,7 @@ keys:
   - &webserver_age age1telukxwt7whx89rw7phgh0vj3a6uvgpu7rslacmhdmtupgn05g6qlyhkh6
   - &fw12_age age1rpqgn629y42lvms4pw45aqyv80wpyje7dprk4g92c3k9g2s9qftqauh0yp
   - &fw13_age age13u2d2a49v79uk84fp9lgfu6jrslhmc4zlrsvzw06z6pll9hrcskq3vkwl8
+  - &pi_age age1a9deej0ra6g4f4ecxuhzcutf9py90l0kjdcltt7n4jr8hgmdyeeqdgd0tk
 
 creation_rules:
   - path_regex: secrets/.*
@@ -15,3 +16,4 @@ creation_rules:
           - *webserver_age
           - *fw12_age
           - *fw13_age
+          - *pi_age

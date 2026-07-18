@@ -38,6 +38,10 @@
   networking.hostName = "raspberry";
   networking.networkmanager.enable = true;
 
+  sops = {
+    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  };
+
   networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 22 2283 ];
@@ -76,11 +80,38 @@
       configDir = "/home/user/.config/syncthing";
       user = "user";
       group = "users";
-      settings.folders = {
-        "Pictures" = {
-	  path = "/mnt/storage/user/syncthing/Pictures";
-	  ignorePerms = false;
-	};
+      settings = {
+        devices =
+          let
+            ids =
+              if builtins.pathExists ../../syncthing-devices.nix then
+                import ../../syncthing-devices.nix
+              else
+                {
+                  fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
+                  fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
+                  thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
+                  pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
+                };
+          in
+          {
+            fw12.id = ids.fw12;
+            fw13.id = ids.fw13;
+            thinkpad.id = ids.thinkpad;
+            pi.id = ids.pi;
+          };
+
+        folders = {
+          "Pictures" = {
+            path = "/mnt/storage/user/syncthing/Pictures";
+            ignorePerms = false;
+            devices = [
+              "fw12"
+              "fw13"
+              "thinkpad"
+            ];
+          };
+        };
       };
     };
   };
