@@ -36,8 +36,7 @@ in
   boot.kernelParams = [ "video=eDP-1:d" ];
 
   # Canon as webcam
-  boot.extraModulePackages = with config.boot.kernelPackages;
-  [ v4l2loopback.out ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback.out ];
   boot.kernelModules = [
     "v4l2loopback"
   ];
@@ -67,7 +66,12 @@ in
     firewall = {
       enable = true;
       allowedUDPPorts = [ 5353 ];
-      allowedTCPPorts = [ 2283 8000 9001 631 ];
+      allowedTCPPorts = [
+        2283
+        8000
+        9001
+        631
+      ];
     };
     useNetworkd = false;
     useHostResolvConf = false;
@@ -154,7 +158,10 @@ in
     ];
 
     # Backend selection (portals.conf semantics)
-    config.common.default = ["xapp" "gtk" ];
+    config.common.default = [
+      "xapp"
+      "gtk"
+    ];
   };
 
   # Flatpack
@@ -177,7 +184,6 @@ in
 
   # Thunderbolt service
   services.hardware.bolt.enable = true;
-
 
   # Mouse
   services.libinput.mouse.accelSpeed = "0.6";
@@ -353,6 +359,7 @@ in
       "video"
       "docker"
       "libvirtd"
+      "dialout"
     ];
     packages = with pkgs; [ ];
   };
@@ -371,8 +378,8 @@ in
     enableDefaultPackages = true;
 
     packages = with pkgs; [
-      noto-fonts           # fallback Latin and basic Unicode
-      noto-fonts-cjk-sans  # CJK Sans
+      noto-fonts # fallback Latin and basic Unicode
+      noto-fonts-cjk-sans # CJK Sans
       noto-fonts-cjk-serif # CJK Serif
     ];
   };
@@ -387,7 +394,7 @@ in
     folders = {
       "Pictures" = {
         path = "/home/user/Pictures";
-	ignorePerms = false;
+        ignorePerms = false;
       };
       "Documents" = {
         path = "/home/user/Documents";
@@ -403,7 +410,6 @@ in
       };
     };
   };
-
 
   # precompiled (nix-ld is enabled by common-tui; fw13 adds extra libraries)
   programs.nix-ld.libraries = with pkgs; [
@@ -435,7 +441,10 @@ in
       brave =
         let
           braveVk = prev.brave.override {
-            commandLineArgs = [ "--use-angle=vulkan" "--enable-features=Vulkan" ];
+            commandLineArgs = [
+              "--use-angle=vulkan"
+              "--enable-features=Vulkan"
+            ];
           };
         in
         prev.symlinkJoin {
@@ -545,7 +554,7 @@ in
     # bitcoin
     (bitcoin.override {
       sqlite = sqlite.overrideAttrs (old: {
-        buildInputs = (old.buildInputs or []) ++ [ zlib ];
+        buildInputs = (old.buildInputs or [ ]) ++ [ zlib ];
       });
     })
 
@@ -565,10 +574,10 @@ in
     # Virtualization
     qemu
     (pkgs.writeShellScriptBin "qemu-system-x86_64-uefi" ''
-        qemu-system-x86_64 \
-          -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
-          "$@"
-      '')
+      qemu-system-x86_64 \
+        -bios ${pkgs.OVMF.fd}/FV/OVMF.fd \
+        "$@"
+    '')
     cloud-init
     cloud-utils
     k3s
