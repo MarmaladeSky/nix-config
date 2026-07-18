@@ -549,12 +549,6 @@ in
       });
     })
 
-    # Development
-    # Neovim language servers
-    nixd
-    haskell-language-server
-    lua-language-server
-
     # Web
     mdbook
     zola
