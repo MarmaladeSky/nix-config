@@ -16,10 +16,21 @@
         haskell-language-server
         nixd
         lua-language-server
+        rust-analyzer
+        rustc
+        cargo
 
         # Formatters for conform.nvim
         ormolu
+        rustfmt
+
+        # Fuzzy finder backend
+        ripgrep
       ];
+
+      home.sessionVariables = {
+        RUST_SRC_PATH = "${pkgs.rustPlatform.rustLibSrc}";
+      };
 
       programs.fish.enable = true;
 
@@ -34,10 +45,18 @@
             p.haskell
             p.nix
             p.lua
+            p.rust
           ]))
+          mini-nvim
+          nvim-tree-lua
+          nvim-web-devicons
+          rustaceanvim
         ];
 
         initLua = ''
+          vim.g.mapleader = ' '
+          vim.g.maplocalleader = ' '
+
           -- absolute line number on the current line
           vim.opt.number = true
 
@@ -73,6 +92,16 @@
             settings = { haskell = { formattingProvider = 'ormolu' } },
           })
 
+          vim.g.rustaceanvim = {
+            server = {
+              default_settings = {
+                ['rust-analyzer'] = {
+                  check = { command = 'clippy' },
+                },
+              },
+            },
+          }
+
           -- IntelliJ-style autocompletion
           -- open the completion menu automatically while typing
           vim.o.autocomplete = true
@@ -98,6 +127,9 @@
               if client:supports_method('textDocument/completion') then
                 vim.lsp.completion.enable(true, client.id, ev.buf, { autotrigger = false })
               end
+              if client:supports_method('textDocument/inlayHint') then
+                vim.lsp.inlay_hint.enable(true, { bufnr = ev.buf })
+              end
             end,
           })
 
@@ -106,6 +138,7 @@
           require('conform').setup({
             formatters_by_ft = {
               haskell = { 'ormolu' },
+              rust = { 'rustfmt' },
             },
             format_on_save = {
               timeout_ms = 1000,
@@ -117,9 +150,28 @@
 
           -- Treesitter highlighting
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'haskell', 'nix', 'lua' },
+            pattern = { 'haskell', 'nix', 'lua', 'rust' },
             callback = function() pcall(vim.treesitter.start) end,
           })
+
+          require('mini.pick').setup()
+          require('mini.extra').setup()
+
+          local map = vim.keymap.set
+          map('n', '<leader>ff', function() MiniPick.builtin.files() end, { desc = 'Find files' })
+          map('n', '<leader>fg', function() MiniPick.builtin.grep_live() end, { desc = 'Live grep' })
+          map('n', '<leader>fb', function() MiniPick.builtin.buffers() end, { desc = 'Buffers' })
+          map('n', '<leader>fr', function() MiniPick.builtin.resume() end, { desc = 'Resume picker' })
+          map('n', '<leader>fs', function() MiniExtra.pickers.lsp({ scope = 'document_symbol' }) end, { desc = 'Document symbols' })
+          map('n', '<leader>fS', function() MiniExtra.pickers.lsp({ scope = 'workspace_symbol' }) end, { desc = 'Workspace symbols' })
+          map('n', '<leader>fd', function() MiniExtra.pickers.diagnostic() end, { desc = 'Diagnostics' })
+          map('n', 'gd', function() MiniExtra.pickers.lsp({ scope = 'definition' }) end, { desc = 'Goto definition' })
+          map('n', 'gr', function() MiniExtra.pickers.lsp({ scope = 'references' }) end, { desc = 'References' })
+
+          vim.g.loaded_netrw = 1
+          vim.g.loaded_netrwPlugin = 1
+          require('nvim-tree').setup()
+          map('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'File tree' })
         '';
 
       };

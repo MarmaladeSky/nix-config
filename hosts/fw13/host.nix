@@ -374,16 +374,6 @@ in
     ];
   };
 
-  fonts = {
-    enableDefaultPackages = true;
-
-    packages = with pkgs; [
-      noto-fonts # fallback Latin and basic Unicode
-      noto-fonts-cjk-sans # CJK Sans
-      noto-fonts-cjk-serif # CJK Serif
-    ];
-  };
-
   # syncthing
   services.syncthing = {
     enable = true;
