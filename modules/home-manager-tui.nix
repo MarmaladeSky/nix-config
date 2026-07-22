@@ -154,9 +154,14 @@
             callback = function() pcall(vim.treesitter.start) end,
           })
 
+          -- Folding
+          vim.o.foldmethod = 'expr'
+          vim.o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.o.foldlevelstart = 99
+
+          -- Navigation
           require('mini.pick').setup()
           require('mini.extra').setup()
-
           local map = vim.keymap.set
           map('n', '<leader>ff', function() MiniPick.builtin.files() end, { desc = 'Find files' })
           map('n', '<leader>fg', function() MiniPick.builtin.grep_live() end, { desc = 'Live grep' })
