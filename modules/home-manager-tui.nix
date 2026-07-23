@@ -177,6 +177,12 @@
           vim.g.loaded_netrwPlugin = 1
           require('nvim-tree').setup()
           map('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'File tree' })
+
+          -- Git
+          require('mini.diff').setup()
+          map('n', '<leader>go', function() MiniDiff.toggle_overlay() end, { desc = 'Diff overlay' })
+          map('n', '<leader>gx', 'gHgh', { remap = true, desc = 'Reset hunk' })
+          map('n', '<leader>gX', function() MiniDiff.do_hunks(0, 'reset') end, { desc = 'Reset buffer' })
         '';
 
       };
