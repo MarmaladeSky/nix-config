@@ -5,7 +5,9 @@
   programs.nix-ld.enable = true;
 
   programs.fish.enable = true;
-  programs.fish.interactiveShellInit = "";
+  programs.fish.interactiveShellInit = ''
+    gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
+  '';
 
   programs.neovim = {
     enable = true;
