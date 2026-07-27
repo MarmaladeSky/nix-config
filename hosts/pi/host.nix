@@ -100,10 +100,36 @@
             thinkpad.id = ids.thinkpad;
             pi.id = ids.pi;
           };
-
         folders = {
           "Pictures" = {
             path = "/mnt/storage/user/syncthing/Pictures";
+            ignorePerms = false;
+            devices = [
+              "fw12"
+              "fw13"
+              "thinkpad"
+            ];
+          };
+          "Documents" = {
+            path = "/mnt/storage/user/syncthing/Documents";
+            ignorePerms = false;
+            devices = [
+              "fw12"
+              "fw13"
+              "thinkpad"
+            ];
+          };
+          "Videos" = {
+            path = "/mnt/storage/user/syncthing/Videos";
+            ignorePerms = false;
+            devices = [
+              "fw12"
+              "fw13"
+              "thinkpad"
+            ];
+          };
+          "Music" = {
+            path = "/mnt/storage/user/syncthing/Music";
             ignorePerms = false;
             devices = [
               "fw12"
