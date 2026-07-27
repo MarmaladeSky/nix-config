@@ -19,6 +19,8 @@
         rust-analyzer
         rustc
         cargo
+        metals
+        coursier
 
         # Formatters for conform.nvim
         ormolu
@@ -46,11 +48,14 @@
             p.nix
             p.lua
             p.rust
+            p.scala
           ]))
           mini-nvim
           nvim-tree-lua
           nvim-web-devicons
           rustaceanvim
+          nvim-metals
+          plenary-nvim
         ];
 
         initLua = ''
@@ -102,6 +107,16 @@
             },
           }
 
+          -- Scala
+          local metals_config = require('metals').bare_config()
+          metals_config.metalsBinaryPath = 'metals'
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'scala', 'sbt' },
+            callback = function()
+              require('metals').initialize_or_attach(metals_config)
+            end,
+          })
+
           -- IntelliJ-style autocompletion
           -- open the completion menu automatically while typing
           vim.o.autocomplete = true
@@ -150,7 +165,7 @@
 
           -- Treesitter highlighting
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'haskell', 'nix', 'lua', 'rust' },
+            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala' },
             callback = function() pcall(vim.treesitter.start) end,
           })
 
