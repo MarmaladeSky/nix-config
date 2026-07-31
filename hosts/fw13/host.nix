@@ -470,31 +470,24 @@ in
   # overlay so common-gui's `brave` resolves to this customized version
   nixpkgs.overlays = [
     (final: prev: {
-      brave =
-        let
-          braveVk = prev.brave.override {
-            commandLineArgs = [
-              "--use-angle=vulkan"
-              "--enable-features=Vulkan"
-            ];
-          };
-        in
-        prev.symlinkJoin {
-          name = "brave";
-          paths = [ braveVk ];
-          nativeBuildInputs = [ prev.makeWrapper ];
-          postBuild = ''
-            wrapProgram $out/bin/brave \
-              --set-default VK_ICD_FILENAMES "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json:/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json"
+      brave = prev.symlinkJoin {
+        name = "brave";
+        paths = [ prev.brave ];
+        nativeBuildInputs = [ prev.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/brave \
+            --add-flags "--use-angle=vulkan" \
+            --add-flags "--enable-features=Vulkan" \
+            --set-default VK_ICD_FILENAMES "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json:/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json"
 
-            # Desktop entries point at the inner binary (no env wrapper); redirect them.
-            for d in $out/share/applications/*.desktop; do
-              src=$(readlink -f "$d")
-              rm "$d"
-              sed "s,${braveVk}/bin/brave,$out/bin/brave,g" "$src" > "$d"
-            done
-          '';
-        };
+          # Desktop entries point at the inner binary (no env wrapper); redirect them.
+          for d in $out/share/applications/*.desktop; do
+            src=$(readlink -f "$d")
+            rm "$d"
+            sed "s,${prev.brave}/bin/brave,$out/bin/brave,g" "$src" > "$d"
+          done
+        '';
+      };
     })
   ];
 
@@ -545,7 +538,7 @@ in
     discord
     k9s
     kubernetes-helm
-    jetbrains.idea-oss
+    jetbrains.idea
     jetbrains.webstorm
     jetbrains.phpstorm
     postman
