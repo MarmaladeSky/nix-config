@@ -11,6 +11,8 @@
   home-manager.users.user =
     { pkgs, ... }:
     {
+      nixpkgs.config.allowUnfreePackages = [ "terraform" ];
+
       home.packages = with pkgs; [
         # Neovim language servers
         haskell-language-server
@@ -21,10 +23,12 @@
         cargo
         metals
         coursier
+        terraform-ls
 
         # Formatters for conform.nvim
         ormolu
         rustfmt
+        terraform
 
         # Fuzzy finder backend
         ripgrep
@@ -49,6 +53,8 @@
             p.lua
             p.rust
             p.scala
+            p.terraform
+            p.hcl
           ]))
           mini-nvim
           nvim-tree-lua
@@ -91,10 +97,16 @@
             'https://github.com/stevearc/conform.nvim',
           })
 
-          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls' })
+          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls', 'terraformls' })
 
           vim.lsp.config('hls', {
             settings = { haskell = { formattingProvider = 'ormolu' } },
+          })
+
+          vim.lsp.config('terraformls', {
+            init_options = {
+              experimentalFeatures = { prefillRequiredFields = true },
+            },
           })
 
           vim.g.rustaceanvim = {
@@ -154,6 +166,9 @@
             formatters_by_ft = {
               haskell = { 'ormolu' },
               rust = { 'rustfmt' },
+              terraform = { 'terraform_fmt' },
+              ['terraform-vars'] = { 'terraform_fmt' },
+              hcl = { 'terraform_fmt' },
             },
             format_on_save = {
               timeout_ms = 1000,
@@ -164,9 +179,19 @@
           vim.diagnostic.config({ virtual_text = true })
 
           -- Treesitter highlighting
+          vim.treesitter.language.register('terraform', 'terraform-vars')
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala' },
+            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala', 'terraform', 'terraform-vars', 'hcl' },
             callback = function() pcall(vim.treesitter.start) end,
+          })
+
+          -- HCL indentation
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = { 'terraform', 'terraform-vars', 'hcl' },
+            callback = function()
+              vim.bo.shiftwidth = 2
+              vim.bo.tabstop = 2
+            end,
           })
 
           -- Folding
