@@ -46,6 +46,27 @@
 
   };
 
+  # Claude Code global instructions
+  systemd.tmpfiles.rules = [
+    "d /home/user/.claude-personal 0755 user users -"
+    "d /home/user/.claude-work 0755 user users -"
+  ];
+
+  sops.secrets = {
+    "claude-personal-md" = {
+      sopsFile = ../secrets/claude-personal.md;
+      format = "binary";
+      owner = "user";
+      path = "/home/user/.claude-personal/CLAUDE.md";
+    };
+    "claude-work-md" = {
+      sopsFile = ../secrets/claude-work.md;
+      format = "binary";
+      owner = "user";
+      path = "/home/user/.claude-work/CLAUDE.md";
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     # Images
     gimp
