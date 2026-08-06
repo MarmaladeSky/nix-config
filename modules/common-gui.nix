@@ -75,6 +75,7 @@
 
     # Web
     brave
+    brave-origin
     tor-browser
     freetube
     thunderbird
