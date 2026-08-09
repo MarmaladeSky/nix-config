@@ -24,11 +24,19 @@
         metals
         coursier
         terraform-ls
+        texlab
+        basedpyright
 
         # Formatters for conform.nvim
         ormolu
         rustfmt
         terraform
+        tex-fmt
+        ruff
+
+        # LaTeX toolchain
+        texliveMedium
+        zathura
 
         # Fuzzy finder backend
         ripgrep
@@ -55,6 +63,10 @@
             p.scala
             p.terraform
             p.hcl
+            p.latex
+            p.bibtex
+            p.python
+            p.toml
           ]))
           mini-nvim
           nvim-tree-lua
@@ -62,6 +74,7 @@
           rustaceanvim
           nvim-metals
           plenary-nvim
+          vimtex
         ];
 
         initLua = ''
@@ -97,7 +110,11 @@
             'https://github.com/stevearc/conform.nvim',
           })
 
-          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls', 'terraformls' })
+          -- LaTeX (VimTeX)
+          vim.g.vimtex_view_method = 'zathura'
+          vim.g.vimtex_syntax_enabled = 0
+
+          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls', 'terraformls', 'texlab', 'basedpyright', 'ruff' })
 
           vim.lsp.config('hls', {
             settings = { haskell = { formattingProvider = 'ormolu' } },
@@ -126,6 +143,34 @@
             pattern = { 'scala', 'sbt' },
             callback = function()
               require('metals').initialize_or_attach(metals_config)
+            end,
+          })
+
+          -- Python
+          vim.lsp.config('basedpyright', {
+            settings = {
+              basedpyright = {
+                analysis = {
+                  typeCheckingMode = 'standard',
+                  autoImportCompletions = true,
+                  diagnosticSeverityOverrides = {
+                    reportUnusedImport = 'none',
+                    reportUnusedVariable = 'none',
+                  },
+                  inlayHints = {
+                    variableTypes = true,
+                    callArgumentNames = true,
+                    functionReturnTypes = true,
+                    genericTypes = false,
+                  },
+                },
+              },
+            },
+          })
+
+          vim.lsp.config('ruff', {
+            on_attach = function(client)
+              client.server_capabilities.hoverProvider = false
             end,
           })
 
@@ -169,6 +214,8 @@
               terraform = { 'terraform_fmt' },
               ['terraform-vars'] = { 'terraform_fmt' },
               hcl = { 'terraform_fmt' },
+              tex = { 'tex-fmt' },
+              python = { 'ruff_organize_imports', 'ruff_format' },
             },
             format_on_save = {
               timeout_ms = 1000,
@@ -180,8 +227,10 @@
 
           -- Treesitter highlighting
           vim.treesitter.language.register('terraform', 'terraform-vars')
+          vim.treesitter.language.register('latex', 'tex')
+          vim.treesitter.language.register('bibtex', 'bib')
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala', 'terraform', 'terraform-vars', 'hcl' },
+            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala', 'terraform', 'terraform-vars', 'hcl', 'tex', 'bib', 'python', 'toml' },
             callback = function() pcall(vim.treesitter.start) end,
           })
 
