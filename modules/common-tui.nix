@@ -5,8 +5,7 @@
   programs.nix-ld.enable = true;
 
   programs.fish.enable = true;
-  programs.fish.interactiveShellInit = ''
-  '';
+  programs.fish.interactiveShellInit = "";
 
   programs.neovim = {
     enable = true;
@@ -43,6 +42,7 @@
     tmux
     jq
     yq-go
+    pv
 
     # File management
     mc
