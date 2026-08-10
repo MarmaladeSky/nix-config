@@ -1,4 +1,9 @@
-{ config, modulesPath, pkgs, ... }:
+{
+  config,
+  modulesPath,
+  pkgs,
+  ...
+}:
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
@@ -6,6 +11,7 @@
 
   system.stateVersion = "26.05";
   ec2.efi = true;
+  boot.loader.grub.configurationLimit = 1;
 
   environment.systemPackages = [ pkgs.nettools ];
 
@@ -17,7 +23,8 @@
   networking.hostName = "webserver";
   networking.firewall = {
     allowedTCPPorts = [
-      80 443 # webserver
+      80
+      443 # webserver
       11010 # easytier
     ];
     allowedUDPPorts = [ 11010 ]; # easytier
