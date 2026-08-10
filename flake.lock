@@ -142,7 +142,24 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
         "noctalia-shell": "noctalia-shell",
+        "site": "site",
         "sops-nix": "sops-nix"
+      }
+    },
+    "site": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1786347692,
+        "narHash": "sha256-rmNEarIqDaHQRq038Xdfrqxtmyawdol/RlBI9H5AaZ8=",
+        "ref": "refs/heads/master",
+        "rev": "6a689fb9a2405c777215f1dba2174c42b34dfb59",
+        "revCount": 1,
+        "type": "git",
+        "url": "ssh://git@github.junkie.digital/MarmaladeSky/junkie-site"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@github.junkie.digital/MarmaladeSky/junkie-site"
       }
     },
     "sops-nix": {

@@ -2,6 +2,7 @@
   config,
   modulesPath,
   pkgs,
+  site,
   ...
 }:
 {
@@ -58,7 +59,9 @@
     email = "{$ACME_EMAIL}";
     environmentFile = config.sops.secrets."caddy-env".path;
     virtualHosts."junkie.digital".extraConfig = ''
-      respond "Hello from caddy"
+      root * ${site}
+      encode zstd gzip
+      file_server
     '';
   };
 }

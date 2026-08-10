@@ -10,6 +10,8 @@
     noctalia-shell.inputs.nixpkgs.follows = "nixpkgs";
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
+    site.url = "git+ssh://git@github.junkie.digital/MarmaladeSky/junkie-site";
+    site.flake = false;
   };
 
   outputs =
@@ -21,6 +23,7 @@
       home-manager,
       noctalia-shell,
       sops-nix,
+      site,
       ...
     }:
     {
@@ -105,6 +108,7 @@
         webserver = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
+            inherit site;
             hostname = "webserver";
           };
           modules = [
