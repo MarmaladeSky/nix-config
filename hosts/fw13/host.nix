@@ -466,6 +466,9 @@ in
   };
   programs.steam.gamescopeSession.enable = true; # Integrates with programs.steam
 
+  # OBS
+  programs.obs-studio.enable = true;
+
   # fw13 needs the vulkan (--use-angle) Brave build. Override pkgs.brave via an
   # overlay so common-gui's `brave` resolves to this customized version
   nixpkgs.overlays = [
