@@ -24,7 +24,56 @@
     networkmanager-openvpn
   ];
 
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+        Experimental = true;
+        KernelExperimental = true;
+        FastConnectable = true;
+        JustWorksRepairing = "always";
+        MultiProfile = "multiple";
+      };
+      Policy = {
+        AutoEnable = true;
+      };
+    };
+  };
+
   services = {
+
+    blueman.enable = true;
+
+    pipewire.wireplumber.extraConfig."10-bluetooth" = {
+      "monitor.bluez.properties" = {
+        "bluez5.enable-sbc-xq" = true;
+        "bluez5.enable-msbc" = true;
+        "bluez5.enable-hw-volume" = true;
+        "bluez5.roles" = [
+          "a2dp_sink"
+          "a2dp_source"
+          "bap_sink"
+          "bap_source"
+          "hfp_ag"
+          "hfp_hf"
+          "hsp_ag"
+          "hsp_hs"
+        ];
+        "bluez5.codecs" = [
+          "ldac"
+          "aptx_hd"
+          "aptx"
+          "aac"
+          "sbc_xq"
+          "sbc"
+        ];
+      };
+    };
+
+    xserver.displayManager.sessionCommands = ''
+      ${pkgs.blueman}/bin/blueman-applet &
+    '';
 
     printing = {
       enable = true;

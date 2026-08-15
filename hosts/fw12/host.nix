@@ -179,6 +179,7 @@
   home-manager.users.user.home.file.".config/niri/config.kdl".text = ''
     spawn-at-startup "noctalia"
     spawn-at-startup "xwayland-satellite" ":69"
+    spawn-at-startup "blueman-applet"
 
     environment {
         DISPLAY ":69"

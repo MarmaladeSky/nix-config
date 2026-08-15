@@ -167,16 +167,6 @@ in
   # Flatpack
   services.flatpak.enable = true;
 
-  # Bluetooth
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
-  hardware.bluetooth.settings = {
-    General = {
-      Experimental = true;
-    };
-  };
-
   services.pulseaudio = {
     enable = false;
     support32Bit = true;
