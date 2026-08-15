@@ -469,8 +469,8 @@ in
   # OBS
   programs.obs-studio.enable = true;
 
-  # fw13 needs the vulkan (--use-angle) Brave build. Override pkgs.brave via an
-  # overlay so common-gui's `brave` resolves to this customized version
+  # fw13 needs the vulkan (--use-angle) Brave build. Override the Brave packages
+  # via an overlay so common-gui resolves to these customized versions.
   nixpkgs.overlays = [
     (final: prev: {
       brave = prev.symlinkJoin {
@@ -488,6 +488,25 @@ in
             src=$(readlink -f "$d")
             rm "$d"
             sed "s,${prev.brave}/bin/brave,$out/bin/brave,g" "$src" > "$d"
+          done
+        '';
+      };
+
+      brave-origin = prev.symlinkJoin {
+        name = "brave-origin";
+        paths = [ prev.brave-origin ];
+        nativeBuildInputs = [ prev.makeWrapper ];
+        postBuild = ''
+          wrapProgram $out/bin/brave-origin \
+            --add-flags "--use-angle=vulkan" \
+            --add-flags "--enable-features=Vulkan" \
+            --set-default VK_ICD_FILENAMES "/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.json:/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json"
+
+          # Desktop entries point at the inner binary (no env wrapper); redirect them.
+          for d in $out/share/applications/*.desktop; do
+            src=$(readlink -f "$d")
+            rm "$d"
+            sed "s,${prev.brave-origin}/bin/brave-origin,$out/bin/brave-origin,g" "$src" > "$d"
           done
         '';
       };
