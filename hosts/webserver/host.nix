@@ -34,6 +34,23 @@
     allowedUDPPorts = [ 11010 ]; # easytier
   };
 
+  services.fail2ban = {
+    enable = true;
+    bantime = "1h";
+    bantime-increment.enable = true;
+    jails.maddy = {
+      filter.Definition = {
+        failregex = ''^.*authentication failed.*"src_ip":"\[?<HOST>\]?:[0-9]+".*$'';
+        journalmatch = "_SYSTEMD_UNIT=maddy.service";
+      };
+      settings = {
+        backend = "systemd";
+        port = "143,587";
+        maxretry = 5;
+      };
+    };
+  };
+
   # easytier service
   services.easytier = {
     enable = true;
