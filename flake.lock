@@ -149,11 +149,11 @@
     "site": {
       "flake": false,
       "locked": {
-        "lastModified": 1786347692,
-        "narHash": "sha256-rmNEarIqDaHQRq038Xdfrqxtmyawdol/RlBI9H5AaZ8=",
+        "lastModified": 1786776539,
+        "narHash": "sha256-r3gU2AIB4odl4QFNzC2FfGAc9nHxQD9CC/vJnDyMMI4=",
         "ref": "refs/heads/master",
-        "rev": "6a689fb9a2405c777215f1dba2174c42b34dfb59",
-        "revCount": 1,
+        "rev": "50fc164cd2bf060f888cf212d35819b9f2d48acb",
+        "revCount": 2,
         "type": "git",
         "url": "ssh://git@github.junkie.digital/MarmaladeSky/junkie-site"
       },
