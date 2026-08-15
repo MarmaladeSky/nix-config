@@ -106,6 +106,12 @@ Unfortunately, [there is no cleaner way](https://nixos.wiki/wiki/NixOS_on_ARM/Ra
 
 AWS EC2 Spot Request instance managed by the flake and attached to a network interface with static public IP.
 
+Inbound: 22 ssh, 80 and 443 website, 25, 143 and 587 email, 11010 tcp and udp easytier.
+
+- `{domain}` A `{public_ip}` — website
+- `mail.{domain}` A `{public_ip}` — email, ACME
+- `{domain}` MX `mail.{domain}` — email delivery
+
 Find the appropriate official NixOS AMI.
 
 ```sh
@@ -179,6 +185,12 @@ Switch the configuration
 nixos-rebuild switch \
   --flake .#webserver \
   --target-host root@{host_ip_address}
+```
+
+Set the email password on the host
+
+```sh
+maddyctl creds create {user}@{domain}
 ```
 
 ## Changes and updates workflow

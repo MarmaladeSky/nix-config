@@ -27,6 +27,9 @@
       80
       443 # webserver
       11010 # easytier
+      25
+      143
+      587 # mail
     ];
     allowedUDPPorts = [ 11010 ]; # easytier
   };
@@ -54,6 +57,16 @@
     };
   };
 
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "postmaster@junkie.digital";
+    certs."mail.junkie.digital" = {
+      webroot = "/var/lib/acme/acme-challenge";
+      group = "maddy";
+      reloadServices = [ "maddy.service" ];
+    };
+  };
+
   services.caddy = {
     enable = true;
     email = "{$ACME_EMAIL}";
@@ -63,5 +76,34 @@
       encode zstd gzip
       file_server
     '';
+    virtualHosts."http://mail.junkie.digital".extraConfig = ''
+      root * /var/lib/acme/acme-challenge
+      file_server
+    '';
+  };
+
+  services.maddy = {
+    enable = true;
+    hostname = "mail.junkie.digital";
+    primaryDomain = "junkie.digital";
+    tls = {
+      loader = "file";
+      certificates = [
+        {
+          certPath = "/var/lib/acme/mail.junkie.digital/fullchain.pem";
+          keyPath = "/var/lib/acme/mail.junkie.digital/key.pem";
+        }
+      ];
+    };
+    ensureAccounts = [ "david@junkie.digital" ];
+  };
+
+  # maddy reads the certificate at startup and exits when it is missing,
+  # so it has to wait for ACME and keep retrying until the certificate exists
+  systemd.services.maddy = {
+    after = [ "acme-mail.junkie.digital.service" ];
+    wants = [ "acme-mail.junkie.digital.service" ];
+    serviceConfig.RestartSec = "30s";
+    unitConfig.StartLimitIntervalSec = 0;
   };
 }
