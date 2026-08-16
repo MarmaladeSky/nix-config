@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -6,6 +6,7 @@
 
   programs.fish.enable = true;
   programs.fish.interactiveShellInit = ''
+    set -gx PINENTRY_USER_DATA tty
     gpg-connect-agent updatestartuptty /bye > /dev/null 2>&1
   '';
 
@@ -31,7 +32,7 @@
     agent = {
       enable = true;
       enableSSHSupport = true;
-      pinentryPackage = pkgs.pinentry-tty;
+      pinentryPackage = lib.mkDefault pkgs.pinentry-tty;
     };
   };
 

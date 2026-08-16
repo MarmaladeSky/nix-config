@@ -17,6 +17,13 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  programs.gnupg.agent.pinentryPackage = pkgs.writeShellScriptBin "pinentry" ''
+    if [ "$PINENTRY_USER_DATA" = "tty" ]; then
+      exec ${pkgs.pinentry-tty}/bin/pinentry-tty "$@"
+    fi
+    exec ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2 "$@"
+  '';
+
   # Enable networking
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "wpa_supplicant";
@@ -144,6 +151,7 @@
 
     # Secrets
     (callPackage ../pkgs/revelation { })
+    pinentry-gtk2
 
     # Media
     mpv

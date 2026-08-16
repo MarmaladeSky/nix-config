@@ -1,13 +1,52 @@
 {
   config,
+  lib,
   modulesPath,
+  options,
   pkgs,
   site,
   ...
 }:
+let
+  outboundDirect = ''
+    target.remote outbound_delivery {
+      limits {
+        destination rate 20 1s
+        destination concurrency 10
+      }
+      mx_auth {
+        dane
+        mtasts {
+          cache fs
+          fs_dir mtasts_cache/
+        }
+        local_policy {
+            min_tls_level encrypted
+            min_mx_level none
+        }
+      }
+    }
+  '';
+  outboundResend = ''
+    target.smtp outbound_delivery {
+      targets tls://smtp.resend.com:465
+      starttls no
+      auth plain resend {env:RESEND_API_KEY}
+    }
+  '';
+  maddyDefaultConfig = options.services.maddy.config.default;
+  maddyConfig = lib.replaceStrings [ outboundDirect ] [ outboundResend ] maddyDefaultConfig;
+in
 {
   imports = [
     "${modulesPath}/virtualisation/amazon-image.nix"
+  ];
+
+  assertions = [
+    {
+      assertion = maddyConfig != maddyDefaultConfig;
+      message = "maddy outbound_delivery block no longer matches the nixpkgs default config";
+    }
   ];
 
   system.stateVersion = "26.05";
@@ -72,6 +111,11 @@
       format = "dotenv";
       owner = "root";
     };
+    secrets."maddy-env" = {
+      sopsFile = ../../secrets/maddy.env;
+      format = "dotenv";
+      owner = "root";
+    };
   };
 
   security.acme = {
@@ -113,6 +157,8 @@
       ];
     };
     ensureAccounts = [ "david@junkie.digital" ];
+    config = maddyConfig;
+    secrets = [ config.sops.secrets."maddy-env".path ];
   };
 
   # maddy reads the certificate at startup and exits when it is missing,
