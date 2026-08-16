@@ -141,6 +141,18 @@ in
       root * /var/lib/acme/acme-challenge
       file_server
     '';
+    virtualHosts."openpgpkey.junkie.digital".extraConfig = ''
+      handle_path /.well-known/openpgpkey/junkie.digital/* {
+        root * ${./wkd}
+        header Access-Control-Allow-Origin "*"
+        header Content-Type "application/octet-stream"
+        file_server
+      }
+      handle {
+        respond 404
+      }
+    '';
+
   };
 
   services.maddy = {

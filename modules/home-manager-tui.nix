@@ -284,6 +284,17 @@
         };
       };
 
+      programs.gpg = {
+        enable = true;
+
+        settings = {
+          no-greeting = true;
+          auto-key-locate = "wkd,keyserver";
+          keyserver = "hkps://keys.openpgp.org";
+          encrypt-to = "0x56B2CCA5F83AECB4";
+        };
+      };
+
       programs.tmux = {
         enable = true;
         plugins = with pkgs; [
