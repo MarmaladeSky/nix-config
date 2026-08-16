@@ -27,15 +27,15 @@ let
       }
     }
   '';
-  outboundResend = ''
+  outboundSes = ''
     target.smtp outbound_delivery {
-      targets tls://smtp.resend.com:465
+      targets tls://email-smtp.us-east-1.amazonaws.com:465
       starttls no
-      auth plain resend {env:RESEND_API_KEY}
+      auth plain {env:SES_SMTP_USER} {env:SES_SMTP_PASSWORD}
     }
   '';
   maddyDefaultConfig = options.services.maddy.config.default;
-  maddyConfig = lib.replaceStrings [ outboundDirect ] [ outboundResend ] maddyDefaultConfig;
+  maddyConfig = lib.replaceStrings [ outboundDirect ] [ outboundSes ] maddyDefaultConfig;
 in
 {
   imports = [
