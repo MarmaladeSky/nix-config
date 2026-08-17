@@ -21,7 +21,7 @@
     if [ "$PINENTRY_USER_DATA" = "tty" ]; then
       exec ${pkgs.pinentry-tty}/bin/pinentry-tty "$@"
     fi
-    exec ${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2 "$@"
+    exec ${pkgs.pinentry-gnome3}/bin/pinentry-gnome3 "$@"
   '';
 
   # Enable networking
@@ -151,7 +151,7 @@
 
     # Secrets
     (callPackage ../pkgs/revelation { })
-    pinentry-gtk2
+    pinentry-gnome3
 
     # Media
     mpv
