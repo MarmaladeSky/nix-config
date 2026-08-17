@@ -135,6 +135,7 @@ in
     virtualHosts."junkie.digital".extraConfig = ''
       root * ${site}
       encode zstd gzip
+      header Cache-Control "no-cache"
       file_server
     '';
     virtualHosts."http://mail.junkie.digital".extraConfig = ''

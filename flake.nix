@@ -11,7 +11,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     site.url = "git+ssh://git@github.junkie.digital/MarmaladeSky/junkie-site";
-    site.flake = false;
+    site.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -108,7 +108,7 @@
         webserver = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = {
-            inherit site;
+            site = site.packages.aarch64-linux.default;
             hostname = "webserver";
           };
           modules = [
