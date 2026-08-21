@@ -26,6 +26,8 @@
         terraform-ls
         texlab
         basedpyright
+        gopls
+        go
 
         # Formatters for conform.nvim
         ormolu
@@ -33,6 +35,8 @@
         terraform
         tex-fmt
         ruff
+        gotools # goimports
+        gofumpt
 
         # LaTeX toolchain
         texliveMedium
@@ -67,6 +71,10 @@
             p.bibtex
             p.python
             p.toml
+            p.go
+            p.gomod
+            p.gosum
+            p.gowork
           ]))
           mini-nvim
           nvim-tree-lua
@@ -114,7 +122,7 @@
           vim.g.vimtex_view_method = 'zathura'
           vim.g.vimtex_syntax_enabled = 0
 
-          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls', 'terraformls', 'texlab', 'basedpyright', 'ruff' })
+          vim.lsp.enable({ 'hls', 'nixd', 'lua_ls', 'terraformls', 'texlab', 'basedpyright', 'ruff', 'gopls' })
 
           vim.lsp.config('hls', {
             settings = { haskell = { formattingProvider = 'ormolu' } },
@@ -174,6 +182,31 @@
             end,
           })
 
+          -- Go
+          vim.lsp.config('gopls', {
+            settings = {
+              gopls = {
+                gofumpt = true,
+                staticcheck = true,
+                analyses = {
+                  unusedparams = true,
+                  unusedwrite = true,
+                  nilness = true,
+                  shadow = true,
+                },
+                -- gopls returns no inlay hints unless each kind is enabled here
+                hints = {
+                  assignVariableTypes = true,
+                  compositeLiteralFields = true,
+                  constantValues = true,
+                  functionTypeParameters = true,
+                  parameterNames = true,
+                  rangeVariableTypes = true,
+                },
+              },
+            },
+          })
+
           -- IntelliJ-style autocompletion
           -- open the completion menu automatically while typing
           vim.o.autocomplete = true
@@ -216,6 +249,7 @@
               hcl = { 'terraform_fmt' },
               tex = { 'tex-fmt' },
               python = { 'ruff_organize_imports', 'ruff_format' },
+              go = { 'goimports', 'gofumpt' },
             },
             format_on_save = {
               timeout_ms = 1000,
@@ -230,7 +264,7 @@
           vim.treesitter.language.register('latex', 'tex')
           vim.treesitter.language.register('bibtex', 'bib')
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala', 'terraform', 'terraform-vars', 'hcl', 'tex', 'bib', 'python', 'toml' },
+            pattern = { 'haskell', 'nix', 'lua', 'rust', 'scala', 'terraform', 'terraform-vars', 'hcl', 'tex', 'bib', 'python', 'toml', 'go', 'gomod', 'gosum', 'gowork' },
             callback = function() pcall(vim.treesitter.start) end,
           })
 
