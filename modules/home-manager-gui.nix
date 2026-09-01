@@ -2,6 +2,7 @@
   config,
   pkgs,
   home-manager,
+  elkfarm,
   ...
 }:
 {
@@ -31,7 +32,15 @@
       networkmanager-openvpn
 
       # utils
-      flameshot
+      elkfarm
+      # the capture overlay must bypass the window manager, awesomewm places it
+      # under the wibar otherwise
+      (flameshot.overrideAttrs (old: {
+        postPatch = (old.postPatch or "") + ''
+          substituteInPlace src/widgets/capture/capturewidget.cpp \
+            --replace-fail "if (DesktopInfo().waylandDetected()) {" "if (true) {"
+        '';
+      }))
     ];
 
     home.file.".config/awesome".source = builtins.fetchGit {

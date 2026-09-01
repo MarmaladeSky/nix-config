@@ -12,6 +12,8 @@
     sops-nix.inputs.nixpkgs.follows = "nixpkgs";
     site.url = "git+ssh://git@github.junkie.digital/MarmaladeSky/junkie-site";
     site.inputs.nixpkgs.follows = "nixpkgs";
+    elkfarm.url = "git+ssh://git@github.com/MarmaladeSky/elkfarm";
+    elkfarm.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -24,6 +26,7 @@
       noctalia-shell,
       sops-nix,
       site,
+      elkfarm,
       ...
     }:
     {
@@ -32,6 +35,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit disko home-manager noctalia-shell;
+            elkfarm = elkfarm.packages.x86_64-linux.default;
             hostname = "fw12";
           };
           modules = [
@@ -49,6 +53,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit disko home-manager;
+            elkfarm = elkfarm.packages.x86_64-linux.default;
             hostname = "fw13";
           };
           modules = [
@@ -66,6 +71,7 @@
           system = "x86_64-linux";
           specialArgs = {
             inherit disko home-manager;
+            elkfarm = elkfarm.packages.x86_64-linux.default;
             hostname = "thinkpad";
           };
           modules = [
