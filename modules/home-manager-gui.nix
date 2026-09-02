@@ -19,7 +19,7 @@
     '';
   };
 
-  home-manager.users.user = { 
+  home-manager.users.user = {
 
     home.packages = with pkgs; [
       # awesome
@@ -33,6 +33,7 @@
 
       # utils
       elkfarm
+      sops
       # the capture overlay must bypass the window manager, awesomewm places it
       # under the wibar otherwise
       (flameshot.overrideAttrs (old: {
@@ -60,4 +61,3 @@
     };
   };
 }
-
