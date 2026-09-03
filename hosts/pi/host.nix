@@ -83,22 +83,23 @@
       settings = {
         devices =
           let
-            ids =
-              if builtins.pathExists ../../syncthing-devices.nix then
-                import ../../syncthing-devices.nix
-              else
-                {
-                  fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
-                  fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
-                  thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
-                  pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
-                };
+            ids = {
+              fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
+              fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
+              thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
+              pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
+              huananzhi = "EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE";
+            }
+            // (
+              if builtins.pathExists ../../syncthing-devices.nix then import ../../syncthing-devices.nix else { }
+            );
           in
           {
             fw12.id = ids.fw12;
             fw13.id = ids.fw13;
             thinkpad.id = ids.thinkpad;
             pi.id = ids.pi;
+            huananzhi.id = ids.huananzhi;
           };
         folders = {
           "Pictures" = {
@@ -108,6 +109,7 @@
               "fw12"
               "fw13"
               "thinkpad"
+              "huananzhi"
             ];
           };
           "Documents" = {
@@ -117,6 +119,7 @@
               "fw12"
               "fw13"
               "thinkpad"
+              "huananzhi"
             ];
           };
           "Videos" = {
@@ -126,6 +129,7 @@
               "fw12"
               "fw13"
               "thinkpad"
+              "huananzhi"
             ];
           };
           "Music" = {
@@ -135,6 +139,7 @@
               "fw12"
               "fw13"
               "thinkpad"
+              "huananzhi"
             ];
           };
         };

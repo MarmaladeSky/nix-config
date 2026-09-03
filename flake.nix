@@ -67,6 +67,23 @@
             ./hosts/fw13/host.nix
           ];
         };
+        huananzhi = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit disko home-manager;
+            elkfarm = elkfarm.packages.x86_64-linux.default;
+            hostname = "huananzhi";
+          };
+          modules = [
+            sops-nix.nixosModules.sops
+            ./modules/common-tui.nix
+            ./modules/common-gui.nix
+            ./modules/home-manager-tui.nix
+            ./modules/home-manager-gui.nix
+            ./hosts/huananzhi/hardware.nix
+            ./hosts/huananzhi/host.nix
+          ];
+        };
         thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {

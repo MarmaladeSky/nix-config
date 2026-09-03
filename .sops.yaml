@@ -6,6 +6,7 @@ keys:
   - &fw13_age age13u2d2a49v79uk84fp9lgfu6jrslhmc4zlrsvzw06z6pll9hrcskq3vkwl8
   - &thinkpad_age age1x6a5at26j8ku6m4kc2wrk6g7x9u72he50p8t3k5k2ayl8l93jeqqk9mesk
   - &pi_age age1a9deej0ra6g4f4ecxuhzcutf9py90l0kjdcltt7n4jr8hgmdyeeqdgd0tk
+  - &huananzhi_age age15scyglqlvq97ncnxagjqg9ff98yyl0lrht4w9s8sh2amj0xl2ygsdflljs
 
 creation_rules:
   - path_regex: secrets/.*
@@ -19,3 +20,4 @@ creation_rules:
           - *fw13_age
           - *thinkpad_age
           - *pi_age
+          - *huananzhi_age

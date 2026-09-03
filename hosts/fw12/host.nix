@@ -91,22 +91,23 @@
       settings = {
         devices =
           let
-            ids =
-              if builtins.pathExists ../../syncthing-devices.nix then
-                import ../../syncthing-devices.nix
-              else
-                {
-                  fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
-                  fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
-                  thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
-                  pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
-                };
+            ids = {
+              fw12 = "AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA-AAAAAAA";
+              fw13 = "BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN-BBBBBBB-BBBBBBN";
+              thinkpad = "CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2-CCCCCCC-CCCCCC2";
+              pi = "DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH-DDDDDDD-DDDDDDH";
+              huananzhi = "EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE-EEEEEEE";
+            }
+            // (
+              if builtins.pathExists ../../syncthing-devices.nix then import ../../syncthing-devices.nix else { }
+            );
           in
           {
             fw12.id = ids.fw12;
             fw13.id = ids.fw13;
             thinkpad.id = ids.thinkpad;
             pi.id = ids.pi;
+            huananzhi.id = ids.huananzhi;
           };
 
         folders = {
@@ -117,6 +118,7 @@
               "fw13"
               "thinkpad"
               "pi"
+              "huananzhi"
             ];
           };
           "Documents" = {
@@ -126,6 +128,7 @@
               "fw13"
               "thinkpad"
               "pi"
+              "huananzhi"
             ];
           };
           "Videos" = {
@@ -135,6 +138,7 @@
               "fw13"
               "thinkpad"
               "pi"
+              "huananzhi"
             ];
           };
           "Music" = {
@@ -144,6 +148,7 @@
               "fw13"
               "thinkpad"
               "pi"
+              "huananzhi"
             ];
           };
         };

@@ -1,6 +1,6 @@
 {
+  config,
   pkgs,
-  lib,
   disko,
   ...
 }:
@@ -19,41 +19,48 @@
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  services.logind.settings.Login.extraConfig = ''
-    # don’t shutdown when power button is short-pressed
-    HandlePowerKey=ignore
-  '';
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
 
   time.timeZone = "UTC";
-  networking.hostName = "thinkpad";
-  networking.networkmanager.enable = true;
+  networking.hostName = "huananzhi";
 
   sops = {
     age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+    secrets."easytier-env" = {
+      sopsFile = ../../secrets/easytier.env;
+      format = "dotenv";
+      owner = "root";
+    };
   };
-
-  services.udev.extraRules = ''
-    SUBSYSTEM=="backlight", ACTION=="add", \
-    RUN+="${pkgs.coreutils}/bin/chgrp video /sys$devpath/brightness", \
-    RUN+="${pkgs.coreutils}/bin/chmod g+w /sys$devpath/brightness"
-  '';
 
   users.users.user = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "networkmanager"
+      "audio"
       "video"
       "input"
+      "dialout"
+      "libvirtd"
     ];
   };
 
-  # somehow it gets enabled
-  systemd.user.services.orca.enable = false;
-
   services = {
-    fwupd.enable = true;
+    easytier = {
+      enable = true;
+      instances.default = {
+        settings = {
+          hostname = "huananzhi";
+          ipv4 = "10.1.1.4/24";
+        };
+        environmentFiles = [
+          config.sops.secrets."easytier-env".path
+        ];
+      };
+    };
 
     syncthing = {
       enable = true;
@@ -90,8 +97,8 @@
             devices = [
               "fw12"
               "fw13"
+              "thinkpad"
               "pi"
-              "huananzhi"
             ];
           };
           "Documents" = {
@@ -100,8 +107,8 @@
             devices = [
               "fw12"
               "fw13"
+              "thinkpad"
               "pi"
-              "huananzhi"
             ];
           };
           "Videos" = {
@@ -110,8 +117,8 @@
             devices = [
               "fw12"
               "fw13"
+              "thinkpad"
               "pi"
-              "huananzhi"
             ];
           };
           "Music" = {
@@ -120,39 +127,43 @@
             devices = [
               "fw12"
               "fw13"
+              "thinkpad"
               "pi"
-              "huananzhi"
             ];
           };
         };
       };
     };
 
-    gnome = {
-      core-apps.enable = false;
-      core-developer-tools.enable = false;
-      games.enable = false;
-      gcr-ssh-agent.enable = false;
-    };
-
     xserver = {
       enable = true;
-      dpi = 166;
-      displayManager = {
-        lightdm.enable = false;
-      };
+      displayManager.lightdm.enable = true;
       windowManager.awesome.enable = true;
       xkb.layout = "us,ru";
       xkb.variant = ",";
       xkb.options = "grp:caps_toggle";
     };
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
+    displayManager.defaultSession = "none+awesome";
+    picom.enable = true;
+
+    pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    gvfs.enable = true;
+    udisks2.enable = true;
   };
-  environment.gnome.excludePackages = with pkgs; [
-    gnome-tour
-    gnome-user-docs
-  ];
+
+  programs.dconf.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config.common.default = [ "gtk" ];
+  };
 
   virtualisation.docker = {
     enable = true;
@@ -176,19 +187,14 @@
   };
 
   environment.systemPackages = with pkgs; [
-    # Window Management
-    gnomeExtensions.appindicator
-    gnome-tweaks
-    nautilus # implicitly required by vscodium to open file dialogs
-
-    # part of virtualization
+    nautilus
+    pavucontrol
+    pamixer
+    arandr
+    feh
     kubectl
     cloud-utils
     kubernetes-helm
     k9s
-
-    # Development
-    # Scala
-    bloop
   ];
 }
