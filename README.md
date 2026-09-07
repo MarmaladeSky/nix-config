@@ -157,7 +157,7 @@ Create the Spot Request
 aws ec2 request-spot-instances \
   --profile {your_profile} \
   --type persistent \
-  --instance-interruption-behavior hibernate \
+  --instance-interruption-behavior stop \
   --launch-specification '{
     "ImageId": "{ami}",
     "InstanceType": "t4g.micro",
