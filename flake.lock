@@ -25,11 +25,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788328448,
-        "narHash": "sha256-vQlQfn1E3pL6m+w/Copbvaocc45vUnweWkkYjxhYyf8=",
+        "lastModified": 1788833047,
+        "narHash": "sha256-eO6jzfjb3VKU7QmnJvp76HVi20udqEWwgDSqrAV9LVI=",
         "ref": "refs/heads/master",
-        "rev": "5f4d7b9195e1d201f5b90700b8dc4df1efc05238",
-        "revCount": 17,
+        "rev": "abedde44632ac11d1b81c1516d0727e4b122f32a",
+        "revCount": 19,
         "type": "git",
         "url": "ssh://git@github.com/MarmaladeSky/elkfarm"
       },
@@ -121,11 +121,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1788614874,
-        "narHash": "sha256-7QYjT2vHLuX9Z1pdxHXDKCbh1CR3D/2rywB9Tx0MPRg=",
+        "lastModified": 1788752844,
+        "narHash": "sha256-VaWGJ6+cIYN2erfSecbRV+4ljI185Ty2wUrXyvQbgOw=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "c043004d1c6985732bcc1cbc5a9c9aecbbb4e0f0",
+        "rev": "dc5d91f840324650bac8c379428c7037a416959a",
         "type": "github"
       },
       "original": {
@@ -142,11 +142,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1788655617,
-        "narHash": "sha256-BdWL3nDaooI/R/3JCTmIbn37ka9kunJkDPk0FkunoPk=",
+        "lastModified": 1788799422,
+        "narHash": "sha256-qvTkohG0uhssGyvjh9OrR/R2jAQzLJdeh9/ogMj6Y/A=",
         "owner": "noctalia-dev",
         "repo": "noctalia-shell",
-        "rev": "bdc5c029dcbb63dfdf951dc68c3337ee92e12d89",
+        "rev": "44371790dd669d648ff959175e9e55d6e603175f",
         "type": "github"
       },
       "original": {
