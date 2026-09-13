@@ -171,6 +171,7 @@
     vscodium
     visualvm
     claude-code
+    pi-coding-agent
     (writeShellScriptBin "claude-personal" ''
       CLAUDE_CONFIG_DIR="$HOME/.claude-personal" exec ${lib.getExe claude-code} "$@"
     '')
