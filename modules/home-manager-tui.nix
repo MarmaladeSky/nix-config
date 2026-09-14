@@ -37,6 +37,7 @@
         ruff
         gotools # goimports
         gofumpt
+        mdformat
 
         # LaTeX toolchain
         texliveMedium
@@ -241,6 +242,9 @@
           -- format on save: CLI formatters per filetype, LSP formatting as fallback;
           -- filetypes with neither are saved untouched
           require('conform').setup({
+            formatters = {
+              mdformat = { prepend_args = { '--wrap', '80' } },
+            },
             formatters_by_ft = {
               haskell = { 'ormolu' },
               rust = { 'rustfmt' },
@@ -250,6 +254,7 @@
               tex = { 'tex-fmt' },
               python = { 'ruff_organize_imports', 'ruff_format' },
               go = { 'goimports', 'gofumpt' },
+              markdown = { 'mdformat' },
             },
             format_on_save = {
               timeout_ms = 1000,
