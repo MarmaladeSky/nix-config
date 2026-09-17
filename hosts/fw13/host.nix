@@ -22,6 +22,8 @@ let
   ];
 in
 {
+  programs.evolution.enable = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
