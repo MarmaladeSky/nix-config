@@ -84,11 +84,14 @@
           nvim-metals
           plenary-nvim
           vimtex
+          kanagawa-nvim
         ];
 
         initLua = ''
           vim.g.mapleader = ' '
           vim.g.maplocalleader = ' '
+
+          vim.cmd.colorscheme('kanagawa')
 
           -- absolute line number on the current line
           vim.opt.number = true
