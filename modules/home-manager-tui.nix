@@ -43,6 +43,8 @@
         texliveMedium
         zathura
 
+        postgresql
+
         # Fuzzy finder backend
         ripgrep
       ];
@@ -85,6 +87,10 @@
           plenary-nvim
           vimtex
           kanagawa-nvim
+          diffview-nvim
+          vim-dadbod
+          vim-dadbod-ui
+          vim-dadbod-completion
         ];
 
         initLua = ''
@@ -220,12 +226,12 @@
           -- and show documentation for the highlighted item in a popup
           vim.o.completeopt = 'menu,menuone,noselect,popup'
 
-          -- disable built-in SQL omni completion, it errors without a dbext DB connection;
-          -- keeps SQL syntax highlighting, buffer-word completion still works
+          -- SQL completion from the dadbod connection of the buffer
+          -- instead of the built-in one that errors without dbext
           vim.api.nvim_create_autocmd('FileType', {
-            pattern = 'sql',
+            pattern = { 'sql', 'mysql', 'plsql' },
             callback = function()
-              vim.bo.omnifunc = ""
+              vim.bo.omnifunc = 'vim_dadbod_completion#omni'
             end,
           })
 
@@ -303,13 +309,24 @@
           map('n', '<leader>fd', function() MiniExtra.pickers.diagnostic() end, { desc = 'Diagnostics' })
           map('n', 'gd', function() MiniExtra.pickers.lsp({ scope = 'definition' }) end, { desc = 'Goto definition' })
           map('n', 'gr', function() MiniExtra.pickers.lsp({ scope = 'references' }) end, { desc = 'References' })
+          map('n', 'grn', vim.lsp.buf.rename, { desc = 'Rename symbol' })
 
           vim.g.loaded_netrw = 1
           vim.g.loaded_netrwPlugin = 1
           require('nvim-tree').setup()
           map('n', '<leader>e', '<cmd>NvimTreeToggle<cr>', { desc = 'File tree' })
 
+          -- Databases
+          vim.g.db_ui_use_nerd_fonts = 1
+          vim.g.db_ui_execute_on_save = 0
+          map('n', '<leader>db', '<cmd>DBUIToggle<cr>', { desc = 'Database UI' })
+
           -- Git
+          require('diffview').setup()
+          map('n', '<leader>gh', '<cmd>DiffviewFileHistory<cr>', { desc = 'Repo history' })
+          map('n', '<leader>gH', '<cmd>DiffviewFileHistory %<cr>', { desc = 'File history' })
+          map('n', '<leader>gd', '<cmd>DiffviewOpen<cr>', { desc = 'Diff working tree' })
+          map('n', '<leader>gq', '<cmd>DiffviewClose<cr>', { desc = 'Close diffview' })
           require('mini.diff').setup()
           map('n', '<leader>go', function() MiniDiff.toggle_overlay() end, { desc = 'Diff overlay' })
           map('n', '<leader>gx', 'gHgh', { remap = true, desc = 'Reset hunk' })
