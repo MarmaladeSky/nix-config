@@ -1,5 +1,7 @@
 { pkgs, lib, ... }:
 {
+  programs.evolution.enable = true;
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [
@@ -136,7 +138,6 @@
     freetube
     thunderbird
     claws-mail
-    evolution
 
     # Printing
     system-config-printer
