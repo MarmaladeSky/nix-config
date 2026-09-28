@@ -171,9 +171,9 @@
     jetbrains.rust-rover
     vscodium
     visualvm
-    claude-code
     pi-coding-agent
     herdr
+    # Keep Claude off PATH; expose only the profile-specific wrappers.
     (writeShellScriptBin "claude-personal" ''
       CLAUDE_CONFIG_DIR="$HOME/.claude-personal" exec ${lib.getExe claude-code} "$@"
     '')
