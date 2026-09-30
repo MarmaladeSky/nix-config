@@ -173,6 +173,11 @@
     nvidiaPersistenced = true;
   };
   hardware.nvidia-container-toolkit.enable = true;
+  # Pascal GPUs support no later than 6.1
+  nixpkgs.config.cudaCapabilities = [ "6.1" ];
+
+  # Pin WebKit to the GTX 1070, not the P40
+  environment.sessionVariables.WEBKIT_WEB_RENDER_DEVICE_FILE = "/dev/dri/by-path/pci-0000:81:00.0-render";
 
   # Tesla P40 has no fan of its own; this drives the header confirmed by hand
   # to control its external blower (NCT6779D's pwm2) off the P40's own temp.
@@ -268,5 +273,8 @@
     cloud-utils
     kubernetes-helm
     k9s
+    (llama-cpp.override {
+      cudaSupport = true;
+    })
   ];
 }
