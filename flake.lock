@@ -38,6 +38,26 @@
         "url": "ssh://git@github.com/MarmaladeSky/elkfarm"
       }
     },
+    "hadaka-agent": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790756723,
+        "narHash": "sha256-/PxqPQe3WsETrbgD+iA6Uok9i7KQ4UhHJFY2jsbZuRE=",
+        "owner": "MarmaladeSky",
+        "repo": "hadaka-agent",
+        "rev": "4d17aac096aa17296f0d58ad85d5ac180bc2ebb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "MarmaladeSky",
+        "repo": "hadaka-agent",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": "nixpkgs_2"
@@ -156,6 +176,7 @@
       "inputs": {
         "disko": "disko",
         "elkfarm": "elkfarm",
+        "hadaka-agent": "hadaka-agent",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",

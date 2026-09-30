@@ -3,6 +3,7 @@
   pkgs,
   home-manager,
   elkfarm,
+  hadaka-agent,
   ...
 }:
 {
@@ -33,6 +34,7 @@
 
       # utils
       elkfarm
+      hadaka-agent
       sops
       # the capture overlay must bypass the window manager, awesomewm places it
       # under the wibar otherwise

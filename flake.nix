@@ -14,6 +14,8 @@
     site.inputs.nixpkgs.follows = "nixpkgs";
     elkfarm.url = "git+ssh://git@github.com/MarmaladeSky/elkfarm";
     elkfarm.inputs.nixpkgs.follows = "nixpkgs";
+    hadaka-agent.url = "github:MarmaladeSky/hadaka-agent";
+    hadaka-agent.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -27,6 +29,7 @@
       sops-nix,
       site,
       elkfarm,
+      hadaka-agent,
       ...
     }:
     {
@@ -36,6 +39,7 @@
           specialArgs = {
             inherit disko home-manager noctalia-shell;
             elkfarm = elkfarm.packages.x86_64-linux.default;
+            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
             hostname = "fw12";
           };
           modules = [
@@ -54,6 +58,7 @@
           specialArgs = {
             inherit disko home-manager;
             elkfarm = elkfarm.packages.x86_64-linux.default;
+            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
             hostname = "fw13";
           };
           modules = [
@@ -72,6 +77,7 @@
           specialArgs = {
             inherit disko home-manager;
             elkfarm = elkfarm.packages.x86_64-linux.default;
+            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
             hostname = "huananzhi";
           };
           modules = [
@@ -89,6 +95,7 @@
           specialArgs = {
             inherit disko home-manager;
             elkfarm = elkfarm.packages.x86_64-linux.default;
+            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
             hostname = "thinkpad";
           };
           modules = [
