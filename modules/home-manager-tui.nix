@@ -37,7 +37,7 @@
         ruff
         gotools # goimports
         gofumpt
-        mdformat
+        (mdformat.withPlugins (ps: [ ps.mdformat-front-matters ]))
 
         # LaTeX toolchain
         texliveMedium
