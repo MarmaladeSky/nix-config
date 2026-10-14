@@ -175,6 +175,8 @@
   hardware.nvidia-container-toolkit.enable = true;
   # Pascal GPUs support no later than 6.1
   nixpkgs.config.cudaCapabilities = [ "6.1" ];
+  # CUDA 13 dropped Pascal; 12.x is the last series that supports it
+  nixpkgs.overlays = [ (final: prev: { cudaPackages = final.cudaPackages_12; }) ];
 
   # Pin WebKit to the GTX 1070, not the P40
   environment.sessionVariables.WEBKIT_WEB_RENDER_DEVICE_FILE = "/dev/dri/by-path/pci-0000:81:00.0-render";
