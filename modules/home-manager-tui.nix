@@ -106,6 +106,7 @@
           vim.opt.relativenumber = true
 
           -- case sensitive search if the first letter is uppercase
+          vim.opt.ignorecase = true
           vim.opt.smartcase = true
 
           -- make whitespace visible, rendered as defined below

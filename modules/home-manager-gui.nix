@@ -61,5 +61,18 @@
         useX11LegacyScreenshot=true
       '';
     };
+
+    # default applications
+    xdg.mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "inode/directory" = "thunar.desktop";
+        "video/mp4" = "mpv.desktop";
+        "video/x-matroska" = "mpv.desktop";
+        "video/webm" = "mpv.desktop";
+        "video/quicktime" = "mpv.desktop";
+        "video/x-msvideo" = "mpv.desktop";
+      };
+    };
   };
 }

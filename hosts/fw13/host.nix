@@ -175,6 +175,9 @@ in
   # Thunderbolt service
   services.hardware.bolt.enable = true;
 
+  # CPU frequency
+  services.auto-cpufreq.enable = true;
+
   # Mouse
   services.libinput.mouse.accelSpeed = "0.6";
   services.libinput.mouse.transformationMatrix = "1.6 0 0 0 1.6 0 0 0 1";
