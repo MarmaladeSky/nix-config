@@ -177,6 +177,7 @@ in
 
   # CPU frequency
   services.auto-cpufreq.enable = true;
+  services.tlp.enable = false;
 
   # Mouse
   services.libinput.mouse.accelSpeed = "0.6";
@@ -252,7 +253,7 @@ in
       videoDrivers = [ "nvidia" ]; # default: eGPU connected
 
       defaultDepth = 24;
-      config = ''
+      config = lib.mkIf (lib.elem "nvidia" config.services.xserver.videoDrivers) ''
         Section "ServerLayout"
           Identifier "layout"
           Screen 0 "screen0"
@@ -329,7 +330,6 @@ in
     # internal display + Intel iGPU. Drop "video=eDP-1:d" (base) but keep the
     # Framework module's "nvme.noacpi=1" power param.
     boot.kernelParams = lib.mkForce [ "nvme.noacpi=1" ];
-    services.xserver.config = lib.mkForce "";
 
     hardware.nvidia-container-toolkit.enable = lib.mkForce false;
 
