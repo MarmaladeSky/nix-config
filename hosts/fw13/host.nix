@@ -176,7 +176,14 @@ in
   services.hardware.bolt.enable = true;
 
   # CPU frequency
-  services.auto-cpufreq.enable = true;
+  services.auto-cpufreq = {
+    enable = true;
+    settings.charger = {
+      # Full speed still: the EPP below sets performance
+      governor = "powersave";
+      energy_performance_preference = "performance";
+    };
+  };
   services.tlp.enable = false;
 
   # Mouse
