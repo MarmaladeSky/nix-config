@@ -162,6 +162,7 @@
 
     # Shell
     sakura
+    ghostty
     xclip
 
     # Development
