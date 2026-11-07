@@ -68,6 +68,7 @@
 
     power-profiles-daemon.enable = false;
     auto-cpufreq.enable = true;
+    tlp.enable = false;
 
     easytier = {
       enable = true;
