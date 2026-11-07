@@ -270,7 +270,6 @@
     pamixer
     arandr
     feh
-    zoom-us
     kubectl
     cloud-utils
     kubernetes-helm

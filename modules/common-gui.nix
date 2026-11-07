@@ -191,5 +191,6 @@
     # Communication
     telegram-desktop
     slack
+    zoom-us
   ];
 }

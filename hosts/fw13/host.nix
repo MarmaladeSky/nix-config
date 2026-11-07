@@ -557,7 +557,6 @@ in
     jdk
     openjdk11
     libva-utils
-    zoom-us
     webcamoid
     acpilight
     arandr
