@@ -2,7 +2,7 @@ keys:
   - &user_gpg 88D15D7AF7672C866A8F839C56B2CCA5F83AECB4
   - &backup_age age1s8wnsq0d99fyqfc0fzp3448kvujt55p4n8urxnk5pmfg82qcj5ksww2clg
   - &webserver_age age1telukxwt7whx89rw7phgh0vj3a6uvgpu7rslacmhdmtupgn05g6qlyhkh6
-  - &fw12_age age1rpqgn629y42lvms4pw45aqyv80wpyje7dprk4g92c3k9g2s9qftqauh0yp
+  - &fw12_age age1zec44x5qun6yeu6fjrrwy5z09qlcqmq40qh7885lhkld342c7vhq3f7v7l
   - &fw13_age age13u2d2a49v79uk84fp9lgfu6jrslhmc4zlrsvzw06z6pll9hrcskq3vkwl8
   - &thinkpad_age age1x6a5at26j8ku6m4kc2wrk6g7x9u72he50p8t3k5k2ayl8l93jeqqk9mesk
   - &pi_age age1a9deej0ra6g4f4ecxuhzcutf9py90l0kjdcltt7n4jr8hgmdyeeqdgd0tk
