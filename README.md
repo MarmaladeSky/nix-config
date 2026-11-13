@@ -102,6 +102,33 @@ Unfortunately, [there is no cleaner way](https://nixos.wiki/wiki/NixOS_on_ARM/Ra
 > This configuration is the most similar to the way that NixOS works on other devices. The downside is that NixOS won't attempt to manage anything associated with the first and second stage bootloaders (e.g. config.txt).  
 > You can feel better about this by thinking about this configuration as similar to BIOS settings.
 
+## Portable USB
+
+`liveusb` is a regular installation on a LUKS-encrypted USB disk that boots on any x86_64 machine (UEFI and legacy BIOS, Secure Boot off).
+
+Set the disk in `hosts/liveusb/disko.nix`, then generate the host key and allow it to read the secrets:
+
+```sh
+ssh-keygen -t ed25519 -N "" -f ./ssh_host_ed25519_key
+nix shell nixpkgs#ssh-to-age -c ssh-to-age -i ./ssh_host_ed25519_key.pub
+# put the result into .sops.yaml as liveusb_age, then for every file in secrets/
+sops updatekeys secrets/{file}
+```
+
+Install from any host of this flake:
+
+```sh
+nix run github:nix-community/disko/latest -- \
+  --mode destroy,format,mount ./hosts/liveusb/disko.nix
+
+install -D -m600 ./ssh_host_ed25519_key /mnt/etc/ssh/ssh_host_ed25519_key
+install -D -m644 ./ssh_host_ed25519_key.pub /mnt/etc/ssh/ssh_host_ed25519_key.pub
+rm ./ssh_host_ed25519_key ./ssh_host_ed25519_key.pub
+
+nixos-install --flake .#liveusb
+nixos-enter --root /mnt -c 'passwd user'
+```
+
 ## Webserver
 
 AWS EC2 Spot Request instance managed by the flake and attached to a network interface with static public IP.

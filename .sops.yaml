@@ -7,6 +7,7 @@ keys:
   - &thinkpad_age age1x6a5at26j8ku6m4kc2wrk6g7x9u72he50p8t3k5k2ayl8l93jeqqk9mesk
   - &pi_age age1a9deej0ra6g4f4ecxuhzcutf9py90l0kjdcltt7n4jr8hgmdyeeqdgd0tk
   - &huananzhi_age age15scyglqlvq97ncnxagjqg9ff98yyl0lrht4w9s8sh2amj0xl2ygsdflljs
+  - &liveusb_age age103jrpmlsgqshjc6pwsjckdw7sywyg7zk4608d446d3cqdjh8ueasczrkr4
 
 creation_rules:
   - path_regex: secrets/.*
@@ -21,3 +22,4 @@ creation_rules:
           - *thinkpad_age
           - *pi_age
           - *huananzhi_age
+          - *liveusb_age

@@ -34,86 +34,64 @@
       nix-apple-dev,
       ...
     }:
+    let
+      desktopArgs = hostname: {
+        inherit disko home-manager hostname;
+        elkfarm = elkfarm.packages.x86_64-linux.default;
+        hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
+      };
+      desktopModules = [
+        sops-nix.nixosModules.sops
+        ./modules/common-tui.nix
+        ./modules/common-gui.nix
+        ./modules/home-manager-tui.nix
+        ./modules/home-manager-gui.nix
+      ];
+    in
     {
       nixosConfigurations = {
         fw12 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit
-              disko
-              home-manager
-              noctalia-shell
-              nix-apple-dev
-              ;
-            elkfarm = elkfarm.packages.x86_64-linux.default;
-            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
-            hostname = "fw12";
+          specialArgs = desktopArgs "fw12" // {
+            inherit noctalia-shell nix-apple-dev;
           };
-          modules = [
+          modules = desktopModules ++ [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel
-            sops-nix.nixosModules.sops
             nix-apple-dev.nixosModules.default
-            ./modules/common-tui.nix
-            ./modules/common-gui.nix
-            ./modules/home-manager-tui.nix
-            ./modules/home-manager-gui.nix
             ./hosts/fw12/hardware.nix
             ./hosts/fw12/host.nix
           ];
         };
         fw13 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit disko home-manager;
-            elkfarm = elkfarm.packages.x86_64-linux.default;
-            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
-            hostname = "fw13";
-          };
-          modules = [
+          specialArgs = desktopArgs "fw13";
+          modules = desktopModules ++ [
             nixos-hardware.nixosModules.framework-intel-core-ultra-series1
-            sops-nix.nixosModules.sops
-            ./modules/common-tui.nix
-            ./modules/common-gui.nix
-            ./modules/home-manager-tui.nix
-            ./modules/home-manager-gui.nix
             ./hosts/fw13/hardware.nix
             ./hosts/fw13/host.nix
           ];
         };
         huananzhi = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit disko home-manager;
-            elkfarm = elkfarm.packages.x86_64-linux.default;
-            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
-            hostname = "huananzhi";
-          };
-          modules = [
-            sops-nix.nixosModules.sops
-            ./modules/common-tui.nix
-            ./modules/common-gui.nix
-            ./modules/home-manager-tui.nix
-            ./modules/home-manager-gui.nix
+          specialArgs = desktopArgs "huananzhi";
+          modules = desktopModules ++ [
             ./hosts/huananzhi/hardware.nix
             ./hosts/huananzhi/host.nix
           ];
         };
         thinkpad = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = {
-            inherit disko home-manager;
-            elkfarm = elkfarm.packages.x86_64-linux.default;
-            hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
-            hostname = "thinkpad";
-          };
-          modules = [
-            sops-nix.nixosModules.sops
-            ./modules/common-tui.nix
-            ./modules/common-gui.nix
-            ./modules/home-manager-tui.nix
-            ./modules/home-manager-gui.nix
+          specialArgs = desktopArgs "thinkpad";
+          modules = desktopModules ++ [
             ./hosts/thinkpad/hardware.nix
             ./hosts/thinkpad/host.nix
+          ];
+        };
+        liveusb = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = desktopArgs "liveusb";
+          modules = desktopModules ++ [
+            ./hosts/liveusb/host.nix
           ];
         };
         pi = nixpkgs.lib.nixosSystem {
