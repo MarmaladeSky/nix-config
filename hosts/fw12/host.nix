@@ -159,6 +159,7 @@
 
     xserver = {
       enable = true;
+      dpi = 144;
       displayManager.lightdm.enable = true;
       windowManager.awesome.enable = true;
       xkb.layout = "us,ru";
@@ -174,6 +175,7 @@
     upower.enable = true;
   };
   programs.dconf.enable = true;
+  home-manager.users.user.xresources.properties."Xft.dpi" = 144;
   programs.apple-dev = {
     enable = true;
     usb.enable = true;
