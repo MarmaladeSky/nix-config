@@ -16,6 +16,7 @@
     elkfarm.inputs.nixpkgs.follows = "nixpkgs";
     hadaka-agent.url = "github:MarmaladeSky/hadaka-agent";
     hadaka-agent.inputs.nixpkgs.follows = "nixpkgs";
+    nix-apple-dev.url = "github:m9tdev/nix-apple-dev";
   };
 
   outputs =
@@ -30,6 +31,7 @@
       site,
       elkfarm,
       hadaka-agent,
+      nix-apple-dev,
       ...
     }:
     {
@@ -37,7 +39,12 @@
         fw12 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = {
-            inherit disko home-manager noctalia-shell;
+            inherit
+              disko
+              home-manager
+              noctalia-shell
+              nix-apple-dev
+              ;
             elkfarm = elkfarm.packages.x86_64-linux.default;
             hadaka-agent = hadaka-agent.packages.x86_64-linux.default;
             hostname = "fw12";
@@ -45,6 +52,7 @@
           modules = [
             nixos-hardware.nixosModules.framework-12-13th-gen-intel
             sops-nix.nixosModules.sops
+            nix-apple-dev.nixosModules.default
             ./modules/common-tui.nix
             ./modules/common-gui.nix
             ./modules/home-manager-tui.nix

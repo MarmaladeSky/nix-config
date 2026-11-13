@@ -76,9 +76,31 @@
         "type": "github"
       }
     },
+    "nix-apple-dev": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_3",
+        "pyproject-build-systems": "pyproject-build-systems",
+        "pyproject-nix": "pyproject-nix",
+        "upstream": "upstream",
+        "uv2nix": "uv2nix"
+      },
+      "locked": {
+        "lastModified": 1794330988,
+        "narHash": "sha256-SbB95nTVfx8qOsEHEEA85uHIcniUPdSpWjzg0rpeRUE=",
+        "owner": "m9tdev",
+        "repo": "nix-apple-dev",
+        "rev": "14e5d608215a710b2512b724a29d1ecb6d87c2b1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "m9tdev",
+        "repo": "nix-apple-dev",
+        "type": "github"
+      }
+    },
     "nixos-hardware": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1794425805,
@@ -125,6 +147,22 @@
     },
     "nixpkgs_3": {
       "locked": {
+        "lastModified": 1791594108,
+        "narHash": "sha256-XK4KceonkwD8LuMAt/vNrz982mXJM5jeHAxMwsUXXAQ=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6510408d147d8c5e6d76043e899e9251756f6a75",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_4": {
+      "locked": {
         "lastModified": 1789546076,
         "narHash": "sha256-vWkSk5bbfTqdtMoSgD9FshACO8JCvXTFi+3cqEp0mH0=",
         "rev": "b1b875982b17dabde9b4a37f3e229e74913e6db3",
@@ -136,7 +174,7 @@
         "url": "https://channels.nixos.org/nixos-unstable/nixexprs.tar.xz"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1794386569,
         "narHash": "sha256-x9sADJvoVG0L6RejZB+/BB4YiGZFBZrfTlhF4uBq1tQ=",
@@ -172,14 +210,65 @@
         "type": "github"
       }
     },
+    "pyproject-build-systems": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-apple-dev",
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "nix-apple-dev",
+          "pyproject-nix"
+        ],
+        "uv2nix": [
+          "nix-apple-dev",
+          "uv2nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791170410,
+        "narHash": "sha256-pyru9MpuXRiyq0Bd4q0nHpL4T6HCuZT4B+alcgAYE4A=",
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "rev": "953d35d03a51dbecaf3feb3fb679eb63e90ebeb4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "build-system-pkgs",
+        "type": "github"
+      }
+    },
+    "pyproject-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-apple-dev",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791657700,
+        "narHash": "sha256-vcCAvhtA7hG+/gOge29hYHy7I/dLkIsr5nLx4sFEQic=",
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "rev": "ddc400a6883b042646d0940e65971bb7f7e96107",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "pyproject.nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "disko": "disko",
         "elkfarm": "elkfarm",
         "hadaka-agent": "hadaka-agent",
         "home-manager": "home-manager",
+        "nix-apple-dev": "nix-apple-dev",
         "nixos-hardware": "nixos-hardware",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "noctalia-shell": "noctalia-shell",
         "site": "site",
         "sops-nix": "sops-nix"
@@ -222,6 +311,48 @@
       "original": {
         "owner": "Mic92",
         "repo": "sops-nix",
+        "type": "github"
+      }
+    },
+    "upstream": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792416546,
+        "narHash": "sha256-/wPNPXTIF/UeFX6ezOGxaQvdaTn6MPg8X22vKxJ6ZiQ=",
+        "owner": "joshuaswarren",
+        "repo": "omarchy-apple-dev",
+        "rev": "172e28cff7b6d5adebfa49f93957d6a864378dfb",
+        "type": "github"
+      },
+      "original": {
+        "owner": "joshuaswarren",
+        "repo": "omarchy-apple-dev",
+        "rev": "172e28cff7b6d5adebfa49f93957d6a864378dfb",
+        "type": "github"
+      }
+    },
+    "uv2nix": {
+      "inputs": {
+        "nixpkgs": [
+          "nix-apple-dev",
+          "nixpkgs"
+        ],
+        "pyproject-nix": [
+          "nix-apple-dev",
+          "pyproject-nix"
+        ]
+      },
+      "locked": {
+        "lastModified": 1791656763,
+        "narHash": "sha256-2mFllBdFGB4zNogzx02b8O5JObd7LeAGsndk+ZB5XvI=",
+        "owner": "pyproject-nix",
+        "repo": "uv2nix",
+        "rev": "ddca81d752e29c063eaa914e040c3ec56ed39558",
+        "type": "github"
+      },
+      "original": {
+        "owner": "pyproject-nix",
+        "repo": "uv2nix",
         "type": "github"
       }
     }

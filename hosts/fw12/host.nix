@@ -4,6 +4,7 @@
   lib,
   disko,
   noctalia-shell,
+  nix-apple-dev,
   ...
 }:
 {
@@ -173,6 +174,11 @@
     upower.enable = true;
   };
   programs.dconf.enable = true;
+  programs.apple-dev = {
+    enable = true;
+    usb.enable = true;
+    package = pkgs.callPackage ../../pkgs/apple-dev { inherit nix-apple-dev; };
+  };
   xdg.portal = {
     enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
