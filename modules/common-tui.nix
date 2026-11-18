@@ -77,6 +77,7 @@
     # Development
     git
     gitleaks
+    git-filter-repo
     gitui
     nixfmt
     awscli2
