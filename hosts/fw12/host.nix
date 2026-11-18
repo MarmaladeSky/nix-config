@@ -326,6 +326,8 @@
     noctalia-shell.packages.${pkgs.stdenv.hostPlatform.system}.default
     xwayland-satellite
 
+    guvcview
+
     # part of virtualization
     kubectl
     cloud-utils
